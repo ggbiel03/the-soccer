@@ -5,28 +5,28 @@ let headerContent = `
         <nav class="header_nav">
             <div class="header_escudo">
                 <a href="corinthians.html">
-                    <img src="img/icon/ico_corint.png" alt="Loja do Corinthians" title="Loja do Corinthians">
+                    <img src="/src/images/icon/ico.corint.png" alt="Loja do Corinthians" title="Loja do Corinthians">
                 </a>
                 <a href="palmeiras.html">
-                    <img src="img/icon/ico_palm.png" alt="Loja do Palmeiras" title="Loja do Palmeiras">
+                    <img src="/src/images/ico_palm.png" alt="Loja do Palmeiras" title="Loja do Palmeiras">
                 </a>
                 <a href="santos.html">
-                    <img src="img/icon/ico_santos.png" alt="Loja do Santos" title="Loja do Santos">
+                    <img src="/src/images/ico_santos.png" alt="Loja do Santos" title="Loja do Santos">
                 </a>
                 <a href="saopaulo.html">
-                    <img src="img/icon/ico_sp.png" alt="Loja São do Paulo" title="Loja São do Paulo">
+                    <img src="/src/images/ico_sp.png" alt="Loja São do Paulo" title="Loja São do Paulo">
                 </a>
             </div>
             <!-- Add/remover classe header_usuario--active conforme usuário logado -->
             <div class="header_usuario header_usuario--active">
                 <p class="header_nome">Olá, <span id="username">Gabriel!</span></p>
                 <div class="header_carrinho" id="header_carrinho">
-                    <img src="img/icon/bag.png" alt="Carrinho de Compras">
+                    <img src="/src/images/bag.png" alt="Carrinho de Compras">
                 </div>
                 <div class="header_user">
-                    <a href="login.html" class="header_login">Entrar / Cadastro</a>
+                    <a href="/src/pages/login.cadastro/login.html" class="header_login">Entrar / Cadastro</a>
                     <div class="header_user-menu">
-                        <label for="user_menu"><img src="img/icon/user.png" class="header_user-icon"
+                        <label for="user_menu"><img src="src/images/icon/user.png" class="header_user-icon"
                                 alt="Menu Usuário"></label>
                         <input type="checkbox" name="user_menu" id="user_menu">
                         <ul class="header_show-menu">
@@ -46,7 +46,7 @@ let headerContent = `
         </nav>
         <div class="header_logo">
             <a href="index.html" class="header_logo-link">
-                <img src="img/soccer_store_logo_c.png" alt="The Soccer Store">
+                <img src="/src/images/soccer_store_logo_c.png" alt="The Soccer Store">
             </a>
         </div>
         `;
@@ -164,7 +164,7 @@ const CART_BLOCK = `
                 <div class="cart_item">
 
                     <a href="produto.html">
-                        <img src="img/produto/corinthians.jpg" alt="">
+                        <img src="/src/images/produto/corinthians.jpg" alt="">
                     </a>
                     <div class="cart_descricao">
                         <a href="produto.html">
