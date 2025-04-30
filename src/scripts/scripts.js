@@ -5,16 +5,16 @@ let headerContent = `
         <nav class="header_nav">
             <div class="header_escudo">
                 <a href="corinthians.html">
-                    <img src="/src/images/icon/ico.corint.png" alt="Loja do Corinthians" title="Loja do Corinthians">
+                    <img src="/src/images/icon/ico_corint.png" alt="Loja do Corinthians" title="Loja do Corinthians">
                 </a>
                 <a href="palmeiras.html">
-                    <img src="/src/images/ico_palm.png" alt="Loja do Palmeiras" title="Loja do Palmeiras">
+                    <img src="/src/images/icon/ico_palm.png" alt="Loja do Palmeiras" title="Loja do Palmeiras">
                 </a>
                 <a href="santos.html">
-                    <img src="/src/images/ico_santos.png" alt="Loja do Santos" title="Loja do Santos">
+                    <img src="/src/images/icon/ico_santos.png" alt="Loja do Santos" title="Loja do Santos">
                 </a>
                 <a href="saopaulo.html">
-                    <img src="/src/images/ico_sp.png" alt="Loja São do Paulo" title="Loja São do Paulo">
+                    <img src="/src/images/icon/ico_sp.png" alt="Loja São do Paulo" title="Loja São do Paulo">
                 </a>
             </div>
             <!-- Add/remover classe header_usuario--active conforme usuário logado -->
@@ -30,13 +30,13 @@ let headerContent = `
                                 alt="Menu Usuário"></label>
                         <input type="checkbox" name="user_menu" id="user_menu">
                         <ul class="header_show-menu">
-                            <a href="pedidos.html">
+                            <a href="/src/pedidos.html">
                                 <li>MEUS PEDIDOS</li>
                             </a>
-                            <a href="meu-perfil.html">
+                            <a href="/src/pages/perfil/meu-perfil.html">
                                 <li>MINHAS INFORMAÇÕES</li>
                             </a>
-                            <a href="#">
+                            <a href="index.html">
                                 <li>SAIR</li>
                             </a>
                         </ul>
@@ -83,16 +83,16 @@ let footerContent = `
 <div class="footer_info">
     <ul>
         <h2>Clubes</h2>
-        <li><a href="corinthians.html">Corinthians</a></li>
-        <li><a href="palmeiras.html">Palmeiras</a></li>
-        <li><a href="santos.html">Santos</a></li>
-        <li><a href="saopaulo.html">São Paulo</a></li>
+        <li><a href="/src/pages/corinthians/corinthians.html">Corinthians</a></li>
+        <li><a href="/src/pages/palmeiras/palmeiras.html">Palmeiras</a></li>
+        <li><a href="/src/pages/santos/santos.html">Santos</a></li>
+        <li><a href="/src/pages/saopaulo/saopaulo.html">São Paulo</a></li>
     </ul>
     <ul>
         <h2>Área do Cliente</h2>
-        <li><a href="login.html">Login / Cadastro</a></li>
+        <li><a href="/src/pages/login.cadastro/login.html">Login / Cadastro</a></li>
         <li><a href="pedidos.html">Meus Pedidos</a></li>
-        <li><a href="meu-perfil.html">Minhas Informações</a></li>
+        <li><a href="/src/pages/perfil/meu-perfil.html">Minhas Informações</a></li>
     </ul>
     <ul>
         <h2>Empresa</h2>
@@ -133,10 +133,10 @@ const CART_BLOCK = `
                 <div class="cart_item">
 
                     <a href="produto.html">
-                        <img src="img/produto/corinthians.jpg" alt="">
+                        <img src="/src/images/produto/corinthians.jpg" alt="">
                     </a>
                     <div class="cart_descricao">
-                        <a href="produto.html">
+                        <a href="/src/produtos/produto.html">
                             <h3 class="cart_produto">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h3>
                             R$ <span class="cart_produto-preco">314,99</span>
                         </a>
