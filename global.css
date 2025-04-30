@@ -3,7 +3,7 @@
 
 /* reset do css */
 html,
-body,
+body,  
 div,
 span,
 applet,
@@ -463,7 +463,7 @@ p + p {
 .banner {
 	padding-top: 130px;
 	background-color: var(--primary);
-	background-image: url(../img/bc_home.jpg);
+	background-image: url(/src/images/bc_home.jpg);
 	background-repeat: no-repeat;
 	background-position: bottom;
 	background-size: cover;
@@ -718,7 +718,7 @@ p + p {
 }
 
 .newsletter_holder {
-	background-image: url(../img/bc_news.jpg);
+	background-image: url(/src/images/bc_news.jpg);
 	background-size: 50%;
 	background-repeat: no-repeat;
 	background-position: 0 0;

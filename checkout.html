@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Soccer Store</title>
+    <link rel="shortcut icon" href="img/icon/ico.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <script src="scripts/scripts.js" defer></script>
+</head>
+
+<body>
+    <!-- Inicio Header -->
+    <header class="header" id="header"></header>
+    <!-- Fim da Header -->
+
+
+    <!-- Início Banner Loja -->
+    <div class="banner-loja">
+        <h2 class="banner-loja_nome"><strong>Finalizar Compra</strong></h2>
+    </div>
+    <!-- Fim Banner Loja -->
+
+
+    <main class="container grid-pedidos grid-pedidos--checkout">
+
+        <!-- Inicio Sumário -->
+        <aside class="sumario">
+
+            <!-- Início Bloco -->
+            <div class="pedido">
+                <div class="pedido_detalhe">
+                    PRODUTOS NA SACOLA
+                </div>
+
+
+                <!-- Item Pedido -->
+                <div class="pedido_item">
+                    <img src="img/produto/corinthians.jpg" class="pedido_imagem" alt="Camisa do corinthians">
+
+                    <div class="pedido_desc">
+                        <h3 class="pedido_produto">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h3>
+                        <span class="pedido_qtde">2</span> un. | Tamanho: <span class="pedido_tamanho">M</span>
+                        <div class="produto-sub">R$ 629,98</div>
+                    </div>
+                </div>
+
+                <!-- Item Pedido -->
+                <div class="pedido_item">
+                    <img src="img/produto/corinthians.jpg" class="pedido_imagem" alt="Camisa do corinthians">
+
+                    <div class="pedido_desc">
+                        <h3 class="pedido_produto">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h3>
+                        <span class="pedido_qtde">2</span> un. | Tamanho: <span class="pedido_tamanho">M</span>
+                        <div class="produto-sub">R$ 629,98</div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Fim Bloco -->
+
+
+            <!-- Início Bloco -->
+            <div class="pedido">
+                <div class="pedido_detalhe">
+                    RESUMO DO PEDIDO
+                </div>
+
+                <ol class="resumo">
+                    <li><strong>Sub-total</strong> <span>R$ 629,98</span></li>
+                    <li><strong>Frete</strong> <span class="free">Grátis</span></li>
+                    <li class="resumo_total"><strong>Total</strong> <span>R$ 629,98</span></li>
+                </ol>
+            </div>
+            <!-- Fim Bloco -->
+        </aside>
+        <!-- Fim Sumário -->
+
+        <!-- Início Pagamento -->
+        <div class="checkout">
+            <div class="pedido">
+                <div class="pedido_detalhe">
+                    FORMA DE PAGAMENTO
+                </div>
+                <form action="" method="post" class="form">
+                    <ol class="forma-pag">
+                        <li>
+                            <label for="pix" class="checkout-opt">
+                                <input type="radio" name="pagamento" id="pix" checked>
+                                Pagamento por PIX
+                            </label>
+                        </li>
+                        <li>
+                            <label for="cartao" class="checkout-opt">
+                                <input type="radio" name="pagamento" id="cartao">
+                                Cartão de Crédito
+                            </label>
+
+                            <div class="form-card">
+                                <label for="card">Nº do cartão</label>
+                                <input type="text" name="card" id="card">
+
+                                <div class="half">
+                                    <div class="flex-column">
+                                        <label for="CVC">CVC</label>
+                                        <input type="text" name="CVC" id="CVC">
+                                    </div>
+                                    <div class="flex-column">
+                                        <label for="expire">Vencimento</label>
+                                        <input type="text" name="expire" id="expire">
+                                    </div>
+                                </div>
+
+                                <label for="nome">Nome no cartão</label>
+                                <input type="text" name="nome" id="nome">
+                            </div>
+                        </li>
+                    </ol>
+                    <input type="submit" value="Comprar" class="btn btn-comprar">
+                </form>
+            </div>
+        </div>
+
+
+        </div>
+        <!-- Fim Pagamento -->
+    </main>
+
+
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+</body>
+
+</html>
