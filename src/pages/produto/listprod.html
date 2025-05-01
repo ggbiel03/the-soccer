@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Camisetas</title>
+  <link rel="stylesheet" href="/../../global.css" />
+  <link rel="stylesheet" href="/src/styles/listprod-integrado.css" />
+  <link rel="stylesheet" href="/src/styles/listprod-tabela.css" />
+</head>
+
+<body>
+  <header class="header" id="header"></header>
+
+  <main class="lp-container">
+    <section class="lp-card">
+      <div class="lp-card-header">
+        <div class="lp-card-header-flex">
+          <div>
+            <h1 class="lp-title">Gerenciamento de Camisetas</h1>
+            <p class="lp-subtitle">Gerencie o catálogo de camisetas de futebol da sua loja</p>
+          </div>
+          <button class="lp-btn lp-btn-add" id="btnOpenModal">+ Adicionar Camiseta</button>
+        </div>
+      </div>
+
+      <div class="lp-filters">
+        <input type="text" id="searchInput" class="lp-input" placeholder="Buscar camisetas...">
+      
+        <select id="filterSelect" class="lp-select">
+          <option value="">Filtrar por Tipo</option>
+          <option value="Titular">Titular</option>
+          <option value="Reserva">Reserva</option>
+        </select>
+      
+        <select id="filterTime" class="lp-select">
+          <option value="">Filtrar por Time</option>
+          <option value="Corinthians">Corinthians</option>
+          <option value="Palmeiras">Palmeiras</option>
+          <option value="Santos">Santos</option>
+          <option value="São Paulo">São Paulo</option>
+        </select>
+      </div>
+          
+
+      <div style="overflow-x:auto">
+        <table class="lp-table">
+          <thead>
+            <tr>
+              <th>Imagem</th>
+              <th>Nome</th>
+              <th>Time</th>
+              <th>Tipo</th>
+              <th>Preço</th>
+              <th>Estoque</th>
+              <th>Destaque</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="camisetaTableBody">
+            <!-- Conteúdo gerado dinamicamente pelo JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <p style="padding: 1rem; font-size: 1.5rem;">Total: <span id="camisetaCount">0</span> camisetas</p>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="modalForm" class="lp-modal">
+    <div class="lp-modal-content">
+      <span class="lp-modal-close" id="btnCloseModal">&times;</span>
+      <h2>Adicionar Nova Camiseta</h2>
+      <p style="margin-bottom: 1rem; color: #555">Preencha os detalhes da nova camiseta para adicionar ao catálogo.</p>
+      <form id="camisetaForm" class="lp-form">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <input id="camisetaNome" placeholder="Nome da Camiseta" required style="flex: 1" />
+          <input id="camisetaTime" placeholder="Time" required style="flex: 1" />
+        </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <select id="camisetaTipo" required style="flex: 1">
+            <option value="">Tipo</option>
+            <option value="Titular">Titular</option>
+            <option value="Reserva">Reserva</option>
+            <option value="Terceiro Uniforme">Terceiro Uniforme</option>
+            <option value="Retrô">Retrô</option>
+          </select>
+          <input type="number" id="camisetaPreco" placeholder="Preço (R$)" required style="flex: 1" />
+        </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <input type="number" id="camisetaEstoque" placeholder="Estoque" required style="flex: 1" />
+          <input id="camisetaImagem" placeholder="URL da Imagem" style="flex: 1" />
+        </div>
+
+        <fieldset>
+          <legend style="font-weight: bold">Tamanhos Disponíveis</legend>
+          <label><input type="checkbox" /> PP</label>
+          <label><input type="checkbox" /> P</label>
+          <label><input type="checkbox" /> M</label>
+          <label><input type="checkbox" /> G</label>
+          <label><input type="checkbox" /> GG</label>
+          <label><input type="checkbox" /> XGG</label>
+        </fieldset>
+
+        <textarea placeholder="Descrição" rows="3"></textarea>
+        <label><input type="checkbox" id="camisetaDestaque" /> Produto em destaque</label>
+
+        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+          <button type="button" id="btnCloseModal">Cancelar</button>
+          <button type="submit">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+  <script src="/src/scripts/listprod-completo.js"></script>
+</body>
+
+</html>

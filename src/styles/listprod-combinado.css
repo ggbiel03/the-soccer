@@ -1,0 +1,234 @@
+/* LISTPROD CUSTOM PALETTE CSS */
+.lp-btn {
+  font-family: var(--font);
+  font-size: 1.4rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.lp-btn-add {
+  background-color: var(--secondary);
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.lp-btn-add:hover {
+  background-color: #cbb174;
+}
+
+.lp-btn-edit {
+  background-color: #1e302b;
+  color: #fff;
+  margin-right: 0.4rem;
+}
+
+.lp-btn-edit:hover {
+  background-color: #162520;
+}
+
+.lp-btn-del {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.lp-btn-del:hover {
+  background-color: #c9302c;
+}
+
+.lp-input,
+.lp-select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  font-size: 1.4rem;
+}
+
+.lp-card {
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.lp-card-header {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.lp-title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.lp-subtitle {
+  font-size: 1.4rem;
+  color: #555;
+}
+
+.lp-card-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lp-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.lp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.4rem;
+}
+
+.lp-table th,
+.lp-table td {
+  padding: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.lp-table th {
+  background-color: #f3f3f3;
+  color: #333;
+}
+
+/* LISTPROD TABELA VISUAL */
+
+.lp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 1.4rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.lp-table th {
+  background-color: #f3f3f3;
+  color: #444;
+  padding: 1.2rem 1rem;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.lp-table td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.lp-table tr:last-child td {
+  border-bottom: none;
+}
+
+.lp-tag {
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.lp-tag.lp-tipo-Titular {
+  border: 1px solid #1e302b;
+  color: #1e302b;
+  background: #fff;
+}
+
+.lp-tag.lp-tipo-Reserva {
+  border: 1px solid #edcf85;
+  color: #8a6d00;
+  background: #fff7e0;
+}
+
+.lp-tag.lp-tipo-Terceiro-Uniforme {
+  border: 1px solid #ccc;
+  color: #444;
+  background: #f0f0f0;
+}
+
+.lp-tag.lp-tipo-RetrÃ´ {
+  border: 1px solid #b81c1c;
+  color: #b81c1c;
+  background: #fbeaea;
+}
+
+/* === RESPONSIVO === */
+
+@media (max-width: 768px) {
+  .lp-filters {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .lp-table th,
+  .lp-table td {
+    padding: 0.6rem 0.4rem;
+    font-size: 1.2rem;
+  }
+
+  .lp-table img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .lp-card-header-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .lp-btn {
+    width: 100%;
+  }
+
+  .lp-modal-content {
+    width: 95% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .lp-table thead {
+    display: none;
+  }
+
+  .lp-table tr {
+    display: block;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1);
+  }
+
+  .lp-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1.3rem;
+  }
+
+  .lp-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex-basis: 50%;
+    color: #444;
+  }
+
+  .lp-table td:last-child {
+    border-bottom: none;
+  }
+}

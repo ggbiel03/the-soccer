@@ -18,6 +18,9 @@ let headerContent = `
                             <a href="/src/pages/perfil/meu-perfil.html">
                                 <li>MINHAS INFORMAÇÕES</li>
                             </a>
+                            <a href="/src/pages/produto/listprod.html">
+                                <li>PRODUTOS</li>
+                            </a>
                             <a href="/index.html">
                                 <li>SAIR</li>
                             </a>
@@ -70,7 +73,7 @@ let footerContent = `
     <ul>
         <h2>Área do Cliente</h2>
         <li><a href="/src/pages/login.cadastro/login.html">Login / Cadastro</a></li>
-        <li><a href="pedidos.html">Meus Pedidos</a></li>
+        <li><a href="/src/pages/pedidos/pedidos.html">Meus Pedidos</a></li>
         <li><a href="/src/pages/perfil/meu-perfil.html">Minhas Informações</a></li>
     </ul>
     <ul class="footer_contato">
@@ -174,7 +177,7 @@ FOOTER.innerHTML = footerContent;
 //                Total
 //                <span class="cart_valor">R$ 629,98</span>
 //             </div>
-//             <a href="checkout.html" class="btn btn--cart">
+//             <a href="/../../checkout.html" class="btn btn--cart">
 //                 Finalizar compra
 //             </a>
 //         </div>
