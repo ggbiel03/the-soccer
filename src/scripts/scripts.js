@@ -21,7 +21,7 @@ let headerContent = `
             <div class="header_usuario header_usuario--active">
                 <p class="header_nome">Olá, <span id="username">Gabriel!</span></p>
                 <div class="header_carrinho" id="header_carrinho">
-                    <img src="/src/images/bag.png" alt="Carrinho de Compras">
+                    <img src="/src/images/icon/bag.png" alt="Carrinho de Compras">
                 </div>
                 <div class="header_user">
                     <a href="/src/pages/login.cadastro/login.html" class="header_login">Entrar / Cadastro</a>
