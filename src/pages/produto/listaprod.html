@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Soccer Store</title>
+  <link rel="stylesheet" href="/../../global.css" />
+</head>
+<body>
+  <div class="bg-light min-h-screen">
+    <header class="header">
+      <div class="container header-content">
+        <h1 class="logo">The Soccer Store</h1>
+        <span class="admin-text">Admin</span>
+      </div>
+    </header>
+
+    <main class="container content">
+      <section class="card">
+        <div class="card-header">
+          <div class="header-flex">
+            <div>
+              <h2 class="title">Gerenciamento de Camisetas</h2>
+              <p class="subtitle">Gerencie o catálogo de camisetas de futebol da sua loja</p>
+            </div>
+            <button class="btn-add">➕ Adicionar Camiseta</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="filters">
+            <input type="text" placeholder="Buscar camisetas..." class="input" />
+            <select class="select">
+              <option>Todos</option>
+              <option>Titular</option>
+              <option>Reserva</option>
+              <option>Terceiro Uniforme</option>
+              <option>Retrô</option>
+            </select>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Time</th>
+                <th>Tipo</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Destaque</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="https://via.placeholder.com/50" alt="Camisa" /></td>
+                <td>Camisa Flamengo I 2023</td>
+                <td>Flamengo</td>
+                <td><span class="badge titular">Titular</span></td>
+                <td>R$ 299,90</td>
+                <td>45</td>
+                <td>✅</td>
+                <td><button class="btn-action">✏️</button><button class="btn-action">🗑️</button></td>
+              </tr>
+              <!-- Mais linhas conforme necessário -->
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer">Total: 1 camiseta</div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

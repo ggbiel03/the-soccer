@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 /* Geral */
 
-/* reset do css */
+/* reset do css - force */
 html,
 body,  
 div,
@@ -163,7 +163,7 @@ hr {
 
 p {
 	line-height: 1.3;
-	text-indent: 2rem;
+	/*text-indent: 2rem;*/
 }
 
 p strong {
@@ -290,7 +290,7 @@ p + p {
 
 .header_nav {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	padding: 0px 30px;
 }
 
@@ -304,7 +304,10 @@ p + p {
 }
 
 .header_escudo a {
-	padding: 0 8px;
+	color: var(--white);
+	font-weight: 600;
+	display: inline-block;
+	padding: 15px 5px;
 }
 
 .header_escudo img {
@@ -332,8 +335,15 @@ p + p {
 }
 
 .header_carrinho {
-	display: none;
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	color: #ffffff;
+	font-weight: 600;
+}
+
+.header_carrinho span {
+	margin: 0.2rem 0.5rem 0;
 }
 
 .header_usuario--active .header_nome,
@@ -788,7 +798,7 @@ p + p {
 
 .footer_info {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(2, 1fr);
 	padding: 0 5rem;
 	border-top: 1px solid var(--secondary);
 }
@@ -813,9 +823,9 @@ p + p {
 	line-height: 1.3;
 }
 
-.footer_contato {
+/* .footer_contato {
 	grid-column: span 2;
-}
+} */
 
 
 .footer_contato li {
@@ -836,15 +846,15 @@ p + p {
 }
 
 .footer_email::before {
-	background-image: url(../img/icon/email_ico.png);
+	background-image: url(/src/images/icon/email_ico.png);
 }
 
 .footer_fone::before {
-	background-image: url(../img/icon/phone_ico.png);
+	background-image: url(/src/images/icon/phone_ico.png);
 }
 
 .footer_endereco::before {
-	background-image: url(../img/icon/place_ico.png);
+	background-image: url(/src/images/icon/place_ico.png);
 }
 
 .footer_direitos {
@@ -891,24 +901,24 @@ p + p {
 	/* background-attachment: fixed; */
 	display: flex;
 	align-items: center;
-	background-image: url(../img/shop_header/page_header.jpg);
+	background-image: url(/src/images/shop_header/page_header.jpg);
 	min-height: 5rem;
 }
 
 .banner-loja--corinthians {
-	background-image: url(../img/shop_header/corinthians_header.jpg);
+	background-image: url(/src/images/shop_header/corinthians_header.jpg);
 }
 
 .banner-loja--palmeiras {
-	background-image: url(../img/shop_header/palmeiras_header.jpg);
+	background-image: url(/src/images/shop_header/palmeiras_header.jpg);
 }
 
 .banner-loja--santos {
-	background-image: url(../img/shop_header/santos_header.jpg);
+	background-image: url(/src/images/shop_header/santos_header.jpg);
 }
 
 .banner-loja--saopaulo {
-	background-image: url(../img/shop_header/saopaulo_header.jpg);
+	background-image: url(/src/images/shop_header/saopaulo_header.jpg);
 }
 
 .banner-loja_escudo {
@@ -971,7 +981,7 @@ p + p {
 	content: "";
 	height: 100%;
 	width: 100%;
-	background-image: url(../img/login/grain.jpg);
+	background-image: url(/src/images/login/grain.jpg);
 	mix-blend-mode: color-dodge;
 	position: fixed;
 	top: 0;
@@ -1375,211 +1385,6 @@ p + p {
 	}
 }
 
-/* CARRINHO DE COMPRAS_________________________________ */
-.no-scroll {
-	overflow: hidden;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-}
-
-#cart {
-	position: fixed;
-	z-index: 99;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #00000066;
-	z-index: -1;
-	opacity: 0;
-	transition: 0.3s;
-}
-
-#cart.cart--active {
-	z-index: 99;
-	opacity: 1;
-}
-
-.cart--active .cart {
-	right: 0;
-}
-
-.cart {
-	position: absolute;
-	overflow-y: scroll;
-	overflow-x: clip;
-	top: 0;
-	right: -100%;
-	display: flex;
-	flex-direction: column;
-	box-sizing: border-box;
-	max-width: 90%;
-	width: 500px;
-	height: 100%;
-	background-color: var(--white);
-	padding: 2rem;
-	transition: 0.5s ease-in-out;
-	box-shadow: -1rem 0 1rem #00000077;
-}
-
-.close-x {
-	font-weight: 600;
-	font-size: 2rem;
-	cursor: pointer;
-	text-align: right;
-	padding: 0.5rem;
-	align-self: flex-end;
-}
-
-.close-x:hover {
-	opacity: 0.5;
-}
-
-.cart_title {
-	font-size: 2.5rem;
-	border-bottom: 2px solid var(--secondary);
-	margin-bottom: 2rem;
-	font-weight: 700;
-	text-transform: uppercase;
-}
-
-#cart_qtde {
-	--size: 1.3rem;
-	color: var(--white);
-	font-weight: 300;
-	background-color: var(--primary);
-	border-radius: 50%;
-	display: inline-block;
-	width: var(--size);
-	height: var(--size);
-	text-align: center;
-	vertical-align: top;
-	padding: 0.5rem;
-	font-size: var(--size);
-	margin-left: 0.5rem;
-}
-
-#cart_qtde:empty {
-	display: none;
-}
-
-.cart_empty {
-	display: none;
-	align-content: center;
-	text-align: center;
-	font-weight: 600;
-	font-size: 2ch;
-}
-
-.cart_empty,
-.cart_items {
-	flex-grow: 1;
-}
-
-.cart_items:not(:has(.cart_item))+.cart_empty {
-	display: block;
-}
-
-.cart_items:not(:has(.cart_item)) {
-	display: none;
-}
-
-.cart_items:not(:has(.cart_item))~.cart_suptotal,
-.cart_items:not(:has(.cart_item))~.btn {
-	display: none;
-}
-
-.cart_items:empty {
-	display: none;
-}
-
-.cart_items {
-	display: flex;
-	flex-direction: column;
-}
-
-.cart_item {
-	display: grid;
-	grid-template-columns: 20% 1fr 20%;
-	align-items: flex-start;
-	padding: 1rem 0 0;
-	gap: 1rem;
-}
-
-.cart_item+.cart_item {
-	border-top: 1px solid #dddddd;
-}
-
-.cart_item a {
-	color: var(--primary);
-}
-
-.cart_descricao {
-	font-weight: 300;
-	line-height: 1.1;
-}
-
-.cart_produto {
-	font-weight: 500;
-	margin-bottom: 0.8rem;
-}
-
-.cart_item img {
-	width: 100%;
-}
-
-.cart .produto-qtde {
-	padding: 0.3rem 0.5rem;
-	border-radius: 0;
-}
-
-.remover {
-	margin-top: 0.5rem;
-	cursor: pointer;
-	text-align: center;
-	color: #bd4040;
-}
-
-.remover:hover {
-	color: #f10000;
-}
-
-.cart_suptotal {
-	display: flex;
-	justify-content: space-between;
-	margin: 3rem 0;
-	padding-top: 1rem;
-	border-top: 1px solid var(--secondary);
-	font-size: 2rem;
-	font-weight: 800;
-}
-
-.btn--cart {
-	justify-self: end;
-}
-
-.btn--cart {
-	text-align: center;
-	background-color: var(--secondary);
-	font-weight: 600;
-	border: none;
-}
-
-.btn--cart:hover {
-	background-color: #cbb174;
-}
-
-.cart_bc {
-	cursor: pointer;
-	position: fixed;
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	z-index: -1;
-}
-
 /* PEDIDOS________________________________________________________*/
 .grid-pedidos {
 	display: flex;
@@ -1778,9 +1583,15 @@ p + p {
 	padding: 1rem;
 }
 
+.sobre h3 {
+	font-size: 2.5rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+
 .sobre-img {
 	width: 100%;
-	aspect-ratio: 2/3;
+	aspect-ratio: 2/2;
 	object-fit: cover;
 }
 
@@ -1795,3 +1606,5 @@ p + p {
 		object-position: center 20%;
 	}
 }
+
+/* LISTA DE PRODUTOS________________________________________ */
