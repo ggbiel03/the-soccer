@@ -6,7 +6,7 @@ let headerContent = `
             <!-- Add/remover classe header_usuario--active conforme usuário logado -->
             <div class="header_usuario header_usuario--active">
                 <div class="header_user">
-                    <a href="/src/pages/login.cadastro/login.html" class="header_login">Entrar / Cadastro</a>
+                    <a href="/src/pages/login/login.html" class="header_login">Entrar / Cadastro</a>
                     <div class="header_user-menu">
                         <label for="user_menu"><img src="/src/images/icon/user.png" class="header_user-icon"
                                 alt="Menu Usuário"></label>
@@ -72,7 +72,7 @@ let footerContent = `
 <div class="footer_info">
     <ul>
         <h2>Área do Cliente</h2>
-        <li><a href="/src/pages/login.cadastro/login.html">Login / Cadastro</a></li>
+        <li><a href="/src/pages/login/login.html">Login / Cadastro</a></li>
         <li><a href="/src/pages/pedidos/pedidos.html">Meus Pedidos</a></li>
         <li><a href="/src/pages/perfil/meu-perfil.html">Minhas Informações</a></li>
     </ul>
