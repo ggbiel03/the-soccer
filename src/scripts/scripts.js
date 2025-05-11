@@ -95,3 +95,55 @@ let footerContent = `
 `;
 const FOOTER = document.querySelector("#footer");
 FOOTER.innerHTML = footerContent;
+
+//CHECKOUT_____________________________________________
+
+// Defina a função validateSelection como global
+function validateSelection() {
+    const tamanhoSelecionado = document.querySelector('input[name="tamanho"]:checked');
+    const quantidadeSelecionada = document.getElementById('qtde').value;
+
+    if (!tamanhoSelecionado) {
+        alert('Por favor, selecione um tamanho.');
+        return;
+    }
+
+    if (!quantidadeSelecionada) {
+        alert('Por favor, selecione a quantidade.');
+        return;
+    }
+
+    // Redireciona para a página de checkout
+    window.location.href = '/src/pages/pedidos/checkout.html';
+}
+
+//EXIBIR QR CODE___________________________________
+function mostrarQRCode() {
+    const qrCode = document.getElementById('qr-code');
+    const cartao = document.getElementById('cartao');
+
+    // Exibe o QR Code se PIX for selecionado
+    qrCode.style.display = 'block';
+
+    // Oculta os campos de cartão de crédito
+    const formCard = document.querySelector('.form-card');
+    if (formCard) {
+        formCard.style.display = 'none';
+    }
+}
+
+//FILTRAR PRODUTOS___________________________________
+function filtrarProdutos() {
+    const input = document.getElementById('pesquisa');
+    const filtro = input.value.toLowerCase();
+    const produtos = document.querySelectorAll('.produtos_produto');
+
+    produtos.forEach(produto => {
+        const nomeProduto = produto.querySelector('.produtos_nome').textContent.toLowerCase();
+        if (nomeProduto.includes(filtro)) {
+            produto.parentElement.style.display = ''; // Mostra o produto
+        } else {
+            produto.parentElement.style.display = 'none'; // Oculta o produto
+        }
+    });
+}

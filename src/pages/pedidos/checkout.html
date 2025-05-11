@@ -88,9 +88,11 @@
                     <ol class="forma-pag">
                         <li>
                             <label for="pix" class="checkout-opt">
-                                <input type="radio" name="pagamento" id="pix" checked>
+                                <input type="radio" name="pagamento" id="pix" onclick="mostrarQRCode()">
                                 Pagamento por PIX
                             </label>
+                            <img id="qr-code" class="qr-code-img center-img" src="/src/images/qr-code.jpeg"
+                                alt="QR Code para pagamento" style="display: none;">
                         </li>
                         <li>
                             <label for="cartao" class="checkout-opt">

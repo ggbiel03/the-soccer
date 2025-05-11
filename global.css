@@ -696,6 +696,19 @@ p + p {
 	margin-top: 0.4rem;
 }
 
+.produtos_pesquisa {
+    margin-bottom: 20px;
+    text-align: left; /* Alinha o campo à esquerda */
+}
+
+.produtos_pesquisa input {
+    width: 300px; /* Define a largura do campo */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+}
+
 @media (max-width: 768px) {
 	.produtos {
 		margin: 4rem 1rem;
@@ -719,6 +732,7 @@ p + p {
 		font-size: 1.2rem;
 	}
 }
+
 
 /* NEWSLETTER________________________________________________________*/
 
@@ -1804,3 +1818,16 @@ p + p {
     background-color: #f3f3f3;
     color: #333;
   }
+  
+  /* QR CODE  */
+  .qr-code-img {
+    width: 150px;
+    height: 150px;
+}
+
+.center-img {
+    display: block;
+    margin: 10px auto; /* Centraliza horizontalmente */
+    width: 250px; /* Ajuste o tamanho conforme necessário */
+    height: 250px; /* Ajuste o tamanho conforme necessário */
+}
