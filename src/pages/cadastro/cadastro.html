@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Soccer Store - Login</title>
+    <link
+      rel="shortcut icon"
+      href="/src/images/icon/ico.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/../../global.css" />
+    <link rel="stylesheet" href="./cadastro.css" />
+    <script src="./cadastro.js"></script>
+  </head>
+
+  <body>
+      <!-- Início Cadastro -->
+      <div class="login_form" id="cadastro">
+        <h2>Cadastre-se</h2>
+
+        <form id="form-cadastro" class="form">
+          <div class="half">
+            <fieldset>
+              <label for="email-cadastro">Email</label>
+              <input
+                type="email"
+                name="email-cadastro"
+                id="email-cadastro"
+                placeholder="Insira seu Email"
+                required
+              />
+
+              <label for="senha-cadastro">Senha</label>
+              <input
+                type="password"
+                name="senha-cadastro"
+                id="senha-cadastro"
+                placeholder="Insira sua senha"
+                required
+              />
+
+              <label for="nome">Nome</label>
+              <input
+                type="text"
+                name="nome"
+                id="nome"
+                placeholder="Insira seu nome"
+                required
+              />
+            </fieldset>
+
+                <div class="flex-column">
+                  <label for="estado">Perfil</label>
+                  <select id="estado" name="estado" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="admin">Admin</option>
+                    <option value="vendedor">Vendedor</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="login_links">
+            <div class="login_change-btn voltar-login">Voltar</div>
+            <button type="submit">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

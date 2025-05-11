@@ -1,45 +1,24 @@
-const LOGIN = document.querySelector("#login");
-const CADASTRO = document.querySelector("#cadastro");
-const SENHA = document.querySelector("#senha-form");
-let cadastreSe = document.querySelector("#cadastrese");
-let voltarLogin = document.querySelectorAll(".voltar-login");
-let esqueciSenha = document.querySelector("#esqueci");
-
-function showForm(e) {
-  e.classList.add("login_form--active");
-  e.classList.remove("login_form--inactive");
-}
-
-function hideForm(e) {
-  e.classList.remove("login_form--active");
-  e.classList.add("login_form--inactive");
-}
-
-cadastreSe.addEventListener("click", () => {
-  hideForm(LOGIN);
-  showForm(CADASTRO);
+document.addEventListener("DOMContentLoaded", function () {
+  var form = document.querySelector("form.form");
+  if (form) {
+    form.addEventListener("submit", loginUsuario);
+  }
 });
 
-voltarLogin.forEach((e) =>
-  e.addEventListener("click", () => {
-    showForm(LOGIN);
-    hideForm(e.closest(".login_form"));
-  })
-);
-
-function cadastrar() {
-  console.log("cadastrar");
-}
-
-// Função de login movida para cá
 function loginUsuario(event) {
   event.preventDefault();
   var btnEntrar = document.querySelector("input[type='submit']");
   btnEntrar.disabled = true;
   var originalText = btnEntrar.value;
   btnEntrar.value = "Carregando...";
-  var email = document.getElementById("email-login").value;
+  var email = document.getElementById("email-login").value.trim();
   var senha = document.getElementById("senha-login").value;
+  if (!email || !senha) {
+    exibirMensagem("Preencha todos os campos.");
+    btnEntrar.disabled = false;
+    btnEntrar.value = originalText;
+    return;
+  }
   var data = { email: email, senha: senha };
   fetch("http://127.0.0.1:5000/login", {
     method: "POST",
@@ -52,7 +31,7 @@ function loginUsuario(event) {
     })
     .then(function (result) {
       if (result.success) {
-        window.location.href = "/index.html";
+        window.location.href = "../../../index.html";
       } else {
         exibirMensagem(result.error || "Usuário ou senha inválidos");
       }
@@ -79,5 +58,7 @@ function exibirMensagem(msg) {
   div.style.borderRadius = "8px";
   div.style.zIndex = "9999";
   document.body.appendChild(div);
-  setTimeout(function () { div.remove(); }, 3000);
+  setTimeout(function () {
+    div.remove();
+  }, 3000);
 }
