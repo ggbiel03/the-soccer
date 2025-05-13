@@ -26,86 +26,6 @@
     <!-- Inicio dos Pedidos -->
     <main class="container grid-pedidos">
 
-        <!-- Início Bloco Pedido -->
-        <div class="pedido">
-
-            <div class="pedido_detalhe">
-                <div class="pedido_data">07 de abril de 2025</div>|
-                <div class="pedido_total">Total: R$ 1259,96</div>
-            </div>
-
-
-            <!-- Item Pedido -->
-            <div class="pedido_item">
-                <a href="produto.html">
-                    <img src="/src/images/produto/corinthians.jpg" class="pedido_imagem" alt="Camisa do corinthians">
-                </a>
-                <div class="pedido_desc">
-                    <a href="/src/pages/produto/produto.html">
-                        <h3 class="pedido_produto"><a href="/src/pages/produto/produto.html">Camisa Corinthians I 24/25 s/n° Torcedor Nike
-                                Masculina</h3>
-                    </a>
-                    <span class="pedido_qtde">2</span> un. | Tamanho: <span class="pedido_tamanho">M</span>
-                </div>
-            </div>
-
-            <!-- Item Pedido -->
-            <div class="pedido_item">
-                <a href="/src/pages/produto/produto.html">
-                    <img src="/src/images/produto/corinthians.jpg" class="pedido_imagem" alt="Camisa do corinthians">
-                </a>
-                <div class="pedido_desc">
-                    <a href="/src/pages/produto/produto.html">
-                        <h3 class="pedido_produto"><a href="/src/pages/produto/produto.html">Camisa Corinthians I 24/25 s/n° Torcedor Nike
-                                Masculina</h3>
-                    </a>
-                    <span class="pedido_qtde">2</span> un. | Tamanho: <span class="pedido_tamanho">M</span>
-                </div>
-            </div>
-        </div>
-        <!-- Fim Bloco Pedido -->
-
-
-        <!-- Início Bloco Pedido -->
-        <div class="pedido">
-
-            <div class="pedido_detalhe">
-                <div class="pedido_data">07 de abril de 2025</div>|
-                <div class="pedido_total">Total: R$ 944,97</div>
-            </div>
-
-
-            <!-- Item Pedido -->
-            <div class="pedido_item">
-                <a href="/src/pages/produto/produto.html">
-                    <img src="/src/images/produto/corinthians.jpg" class="pedido_imagem" alt="Camisa do corinthians">
-                </a>
-                <div class="pedido_desc">
-                    <a href="/src/pages/produto/produto.html">
-                        <h3 class="pedido_produto"><a href="produto.html">Camisa Corinthians I 24/25 s/n° Torcedor Nike
-                                Masculina</h3>
-                    </a>
-                    <span class="pedido_qtde">3</span> un. | Tamanho: <span class="pedido_tamanho">M</span>
-                </div>
-            </div>
-
-            <!-- Item Pedido -->
-            <div class="pedido_item">
-                <a href="/src/pages/produto/produto.html">
-                    <img src="/src/images/produto/corinthians.jpg" class="pedido_imagem" alt="Camisa do corinthians">
-                </a>
-                <div class="pedido_desc">
-                    <a href="/src/pages/produto/produto.html">
-                        <h3 class="pedido_produto"><a href="/src/pages/produto/produto.html">Camisa Corinthians I 24/25 s/n° Torcedor Nike
-                                Masculina</h3>
-                    </a>
-                    <span class="pedido_qtde">3</span> un. | Tamanho: <span class="pedido_tamanho">M</span>
-                </div>
-            </div>
-        </div>
-        <!-- Fim Bloco Pedido -->
-
-
         <!-- Sem Pedidos -->
         <div class="sem-pedidos">
             Não há pedidos aqui
@@ -113,7 +33,58 @@
     </main>
     <!-- Fim dos Pedidos -->
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pedidosContainer = document.querySelector('.grid-pedidos');
+            const semPedidos = document.querySelector('.sem-pedidos');
 
+            // Retrieve orders from localStorage
+            const pedidos = JSON.parse(localStorage.getItem('completedOrders')) || [];
+
+            if (pedidos.length === 0) {
+                semPedidos.style.display = 'block';
+                return;
+            }
+
+            semPedidos.style.display = 'none';
+
+            pedidos.forEach(pedido => {
+                const pedidoDiv = document.createElement('div');
+                pedidoDiv.classList.add('pedido');
+
+                // Pedido details
+                const pedidoDetalhe = document.createElement('div');
+                pedidoDetalhe.classList.add('pedido_detalhe');
+                pedidoDetalhe.innerHTML = `
+                    <div class="pedido_data">${pedido.date}</div>|
+                    <div class="pedido_total">Total: R$ ${pedido.total.toFixed(2)}</div>
+                `;
+                pedidoDiv.appendChild(pedidoDetalhe);
+
+                // Pedido items
+                pedido.items.forEach(item => {
+                    const pedidoItem = document.createElement('div');
+                    pedidoItem.classList.add('pedido_item');
+
+                    pedidoItem.innerHTML = `
+                        <a href="${item.link}">
+                            <img src="${item.image}" class="pedido_imagem" alt="${item.name}">
+                        </a>
+                        <div class="pedido_desc">
+                            <a href="${item.link}">
+                                <h3 class="pedido_produto">${item.name}</h3>
+                            </a>
+                            <span class="pedido_qtde">${item.quantity}</span> un. | Tamanho: <span class="pedido_tamanho">${item.size}</span>
+                        </div>
+                    `;
+
+                    pedidoDiv.appendChild(pedidoItem);
+                });
+
+                pedidosContainer.appendChild(pedidoDiv);
+            });
+        });
+    </script>
 
     <!-- Footer -->
     <div id="footer"></div>

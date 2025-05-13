@@ -28,53 +28,25 @@
 
         <!-- Inicio Sumário -->
         <aside class="sumario">
-
-            <!-- Início Bloco -->
             <div class="pedido">
                 <div class="pedido_detalhe">
                     PRODUTOS NA SACOLA
                 </div>
 
-
-                <!-- Item Pedido -->
-                <div class="pedido_item">
-                    <img src="/src/images/produto/corinthians.jpg" class="pedido_imagem" alt="Camisa do corinthians">
-
-                    <div class="pedido_desc">
-                        <h3 class="pedido_produto">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h3>
-                        <span class="pedido_qtde">2</span> un. | Tamanho: <span class="pedido_tamanho">M</span>
-                        <div class="produto-sub">R$ 629,98</div>
-                    </div>
-                </div>
-
-                <!-- Item Pedido -->
-                <div class="pedido_item">
-                    <img src="/src/images/produto/corinthians.jpg" class="pedido_imagem" alt="Camisa do corinthians">
-
-                    <div class="pedido_desc">
-                        <h3 class="pedido_produto">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h3>
-                        <span class="pedido_qtde">2</span> un. | Tamanho: <span class="pedido_tamanho">M</span>
-                        <div class="produto-sub">R$ 629,98</div>
-                    </div>
-                </div>
-
+                <!-- Os itens serão carregados dinamicamente -->
             </div>
-            <!-- Fim Bloco -->
 
-
-            <!-- Início Bloco -->
             <div class="pedido">
                 <div class="pedido_detalhe">
                     RESUMO DO PEDIDO
                 </div>
 
                 <ol class="resumo">
-                    <li><strong>Sub-total</strong> <span>R$ 629,98</span></li>
+                    <li><strong>Sub-total</strong> <span id="subtotal">R$ 0,00</span></li>
                     <li><strong>Frete</strong> <span class="free">Grátis</span></li>
-                    <li class="resumo_total"><strong>Total</strong> <span>R$ 629,98</span></li>
+                    <li class="resumo_total"><strong>Total</strong> <span id="total">R$ 0,00</span></li>
                 </ol>
             </div>
-            <!-- Fim Bloco -->
         </aside>
         <!-- Fim Sumário -->
 
@@ -84,7 +56,7 @@
                 <div class="pedido_detalhe">
                     FORMA DE PAGAMENTO
                 </div>
-                <form action="" method="post" class="form">
+                <form action="" method="post" class="form" onsubmit="return validarFormularioPagamento()">
                     <ol class="forma-pag">
                         <li>
                             <label for="pix" class="checkout-opt">
@@ -100,28 +72,26 @@
                                 Cartão de Crédito
                                 <div class="form-card">
                                     <label for="card">Nº do cartão</label>
-                                    <input type="text" name="card" id="card">
-    
+                                    <input type="text" name="card" id="card" required>
+
                                     <div class="half">
                                         <div class="flex-column">
                                             <label for="CVC">CVC</label>
-                                            <input type="text" name="CVC" id="CVC">
+                                            <input type="text" name="CVC" id="CVC" required>
                                         </div>
                                         <div class="flex-column">
                                             <label for="expire">Vencimento</label>
-                                            <input type="text" name="expire" id="expire">
+                                            <input type="text" name="expire" id="expire" required>
                                         </div>
                                     </div>
-    
+
                                     <label for="nome">Nome no cartão</label>
-                                    <input type="text" name="nome" id="nome">
+                                    <input type="text" name="nome" id="nome" required>
                                 </div>
                             </label>
-
-                            
                         </li>
                     </ol>
-                    <input type="submit" value="Comprar" class="btn btn-comprar">
+                    <input type="submit" value="Comprar" class="btn btn-comprar" onclick="finalizarCompra(event)">
                 </form>
             </div>
         </div>
@@ -135,6 +105,64 @@
 
     <!-- Footer -->
     <div id="footer"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const produtoSelecionado = JSON.parse(localStorage.getItem('produtoSelecionado'));
+
+            if (produtoSelecionado) {
+                const { nome, tamanho, quantidade } = produtoSelecionado;
+
+                const pedidoItem = document.createElement('div');
+                pedidoItem.classList.add('pedido_item');
+
+                pedidoItem.innerHTML = `
+                    <div class="pedido_desc">
+                        <h3 class="pedido_produto">${nome}</h3>
+                        <span class="pedido_qtde">${quantidade}</span> un. | Tamanho: <span class="pedido_tamanho">${tamanho}</span>
+                    </div>
+                `;
+
+                document.querySelector('.sumario .pedido').appendChild(pedidoItem);
+
+                // Atualizar o subtotal e total
+                const precoUnitario = 314.99; // Exemplo de preço fixo por unidade
+                const subtotal = precoUnitario * quantidade;
+                document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+                document.getElementById('total').textContent = `R$ ${subtotal.toFixed(2)}`;
+            }
+        });
+
+        function validarFormularioPagamento() {
+            const metodoPagamento = document.querySelector('input[name="pagamento"]:checked');
+            if (!metodoPagamento) {
+                alert('Por favor, selecione um método de pagamento.');
+                return false;
+            }
+
+            if (metodoPagamento.id === 'cartao') {
+                const camposObrigatorios = ['card', 'CVC', 'expire', 'nome'];
+                for (const campo of camposObrigatorios) {
+                    const valor = document.getElementById(campo).value.trim();
+                    if (!valor) {
+                        alert('Por favor, preencha todos os campos do cartão de crédito.');
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        function finalizarCompra(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            alert('Compra efetuada com sucesso!');
+
+            // Redireciona para a página inicial
+            window.location.href = '/index.html';
+        }
+    </script>
 
 </body>
 

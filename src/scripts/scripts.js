@@ -12,7 +12,7 @@ let headerContent = `
                                 alt="Menu Usuário"></label>
                         <input type="checkbox" name="user_menu" id="user_menu">
                         <ul class="header_show-menu">
-                            <a href="/src/pages/produto/pedidos.html">
+                            <a href="/src/pages/pedidos/pedidos.html">
                                 <li>MEUS PEDIDOS</li>
                             </a>
                             <a href="/src/pages/perfil/meu-perfil.html">

@@ -11,17 +11,30 @@
 
 <body>
     <!-- Inicio Header -->
-    <header class="header" id="header"></header>
+    <header class="header" id="header" style="margin-top: 0;">
+        <nav class="header_nav">
+            <a href="/src/pages/shop/shop.html" class="btn-voltar">&larr; Voltar</a>
+        </nav>
+    </header>
+    <script src="/src/scripts/scripts.js" defer></script>
     <!-- Fim da Header -->
 
 
     <!-- Início Banner Loja -->
-    <div class="banner-loja banner-loja--produto">
+    <div class="banner-loja banner-loja--produto" style="background-image: url('/src/images/shop_header/saopaulo_header.jpg'); background-size: cover; background-position: center; height: 200px;">
+        <h2 class="banner-loja_nome">
+            Camisas Oficiais<strong>São Paulo Futebol Clube</strong>
+        </h2>
     </div>
     <!-- Fim Banner Loja -->
 
     <!-- Inicio do Produto -->
     <main class="container">
+        <ol class="mapa" style="margin-top: 20px;">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/src/pages/shop/shop.html">Shop</a></li>
+            <li>São Paulo</li>
+        </ol>
         <!-- Nome do Produto Responsivo -->
         <h1 class="produto-nome">Camisa Torcedor SPFC 24/24 s/n° Masculina New Balance</h1>
 
@@ -106,7 +119,20 @@
 
     <!-- Scripts -->
     <script src="/src/scripts/camisas.js"></script>
-    <script src="/src/scripts/scripts.js" defer></script>
+    <script>
+        document.getElementById('buy-now').addEventListener('click', function() {
+            const nome = document.querySelector('.produto-nome').textContent;
+            const tamanho = document.querySelector('input[name="tamanho"]:checked')?.value;
+            const quantidade = document.getElementById('qtde').value;
+
+            if (tamanho && quantidade) {
+                localStorage.setItem('produtoSelecionado', JSON.stringify({ nome, tamanho, quantidade }));
+                alert('Produto adicionado ao carrinho!');
+            } else {
+                alert('Por favor, selecione o tamanho e a quantidade.');
+            }
+        });
+    </script>
 </body>
 
 </html>

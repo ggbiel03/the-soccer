@@ -1443,7 +1443,7 @@ p + p {
 }
 
 .pedido_item {
-	display: grid;
+	/*display: grid;*/
 	grid-template-columns: 15ch 1fr;
 	padding: 1rem 0;
 	margin: 0 1rem;
@@ -1834,4 +1834,18 @@ p + p {
     margin: 10px auto; /* Centraliza horizontalmente */
     width: 250px; /* Ajuste o tamanho conforme necessário */
     height: 250px; /* Ajuste o tamanho conforme necessário */
+}
+
+/* Voltar Button */
+.btn-voltar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
