@@ -96,28 +96,29 @@
                         </li>
                         <li>
                             <label for="cartao" class="checkout-opt">
-                                <input type="radio" name="pagamento" id="cartao">
+                                <input type="radio" name="pagamento" id="cartao" onclick="mostrarCartao()">
                                 Cartão de Crédito
+                                <div class="form-card">
+                                    <label for="card">Nº do cartão</label>
+                                    <input type="text" name="card" id="card">
+    
+                                    <div class="half">
+                                        <div class="flex-column">
+                                            <label for="CVC">CVC</label>
+                                            <input type="text" name="CVC" id="CVC">
+                                        </div>
+                                        <div class="flex-column">
+                                            <label for="expire">Vencimento</label>
+                                            <input type="text" name="expire" id="expire">
+                                        </div>
+                                    </div>
+    
+                                    <label for="nome">Nome no cartão</label>
+                                    <input type="text" name="nome" id="nome">
+                                </div>
                             </label>
 
-                            <div class="form-card">
-                                <label for="card">Nº do cartão</label>
-                                <input type="text" name="card" id="card">
-
-                                <div class="half">
-                                    <div class="flex-column">
-                                        <label for="CVC">CVC</label>
-                                        <input type="text" name="CVC" id="CVC">
-                                    </div>
-                                    <div class="flex-column">
-                                        <label for="expire">Vencimento</label>
-                                        <input type="text" name="expire" id="expire">
-                                    </div>
-                                </div>
-
-                                <label for="nome">Nome no cartão</label>
-                                <input type="text" name="nome" id="nome">
-                            </div>
+                            
                         </li>
                     </ol>
                     <input type="submit" value="Comprar" class="btn btn-comprar">

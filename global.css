@@ -1327,6 +1327,10 @@ p + p {
 
 }
 
+.form-card {
+    display: none;
+}
+
 @media (min-width: 769px) {
 	.grid-produto {
 		grid-template-areas:

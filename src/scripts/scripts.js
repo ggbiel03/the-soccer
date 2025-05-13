@@ -82,8 +82,8 @@ let footerContent = `
                 href="mailto:atendimento@thesoccerstore.com">atendimento@thesoccerstore.com</a>
         </li>
         <li class="footer_fone"><a href="tel:11999999999">(11) 99999 9999</a></li>
-        <li class="footer_endereco">Rua Agostinho Gomes, 1326<br>
-            Ipiranga - São Paulo/SP</li>
+        <li class="footer_endereco">Rua Osvaldo Junior, 333<br>
+            Taboão da Serra - São Paulo/SP</li>
     </ul>
 </div>
 
@@ -130,6 +130,16 @@ function mostrarQRCode() {
     if (formCard) {
         formCard.style.display = 'none';
     }
+}
+
+function mostrarQRCode() {
+    document.getElementById('qr-code').style.display = 'block';
+    document.querySelector('.form-card').style.display = 'none';
+}
+
+function mostrarCartao() {
+    document.getElementById('qr-code').style.display = 'none';
+    document.querySelector('.form-card').style.display = 'block';
 }
 
 //FILTRAR PRODUTOS___________________________________
