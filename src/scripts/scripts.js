@@ -34,8 +34,8 @@ let headerContent = `
             </a>
         </nav>
         <div class="header_logo">
-            <a href="/index.html" class="header_logo-link">
-                <img src="/src/images/soccer_store_logo_c.png" alt="The Soccer Store">
+            <a href="./index.html" class="header_logo-link">
+                <img src="./src/images/soccer_store_logo_c.png" alt="The Soccer Store">
             </a>
         </div>
         `;

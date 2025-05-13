@@ -7,7 +7,7 @@ const listaCamisas = [
     preco: '344,99',
     precoParcelado: '369,99',
     parcelas: '7',
-    imagem: '/src/images/produto/corinthians.jpg'    
+    imagem: '/src/images/produto/corinthians.jpg'
   },
   {
     id: 'corinthians2',
@@ -82,18 +82,35 @@ if (!localStorage.getItem('todasCamisas')) {
 const camisetas = document.querySelectorAll('.camiseta-item');
 
 camisetas.forEach(item => {
-    item.addEventListener('click', function(e) {
-        e.preventDefault();
-        const camisa = {
-            id: this.getAttribute('data-id'),
-            nome: this.querySelector('.produtos_nome').textContent.trim(),
-            preco: this.querySelector('.valor-produto').textContent.trim(),
-            precoParcelado: this.querySelector('.valor-parcelado').textContent.trim(),
-            parcelas: this.querySelector('.parcelas').textContent.trim(),
-            imagem: this.querySelector('.produtos_imagem').getAttribute('src'),
-            descricao: this.querySelector('.produtos_nome').textContent.trim()
-        };
-        localStorage.setItem('camisaSelecionada', JSON.stringify(camisa));
-        window.location.href = '/src/pages/produto/produto.html';
-    });
+  item.addEventListener("click", function (e) {
+    e.preventDefault();
+    const camisa = {
+      id: this.getAttribute('data-id'),
+      nome: this.querySelector('.produtos_nome').textContent.trim(),
+      preco: this.querySelector('.valor-produto').textContent.trim(),
+      precoParcelado: this.querySelector('.valor-parcelado').textContent.trim(),
+      parcelas: this.querySelector('.parcelas').textContent.trim(),
+      imagem: this.querySelector('.produtos_imagem').getAttribute('src'),
+      descricao: this.querySelector('.produtos_nome').textContent.trim()
+    };
+    localStorage.setItem('camisaSelecionada', JSON.stringify(camisa));
+    window.location.href = 'src/pages/produto/produto.html';
+  });
 });
+
+// camisetas.forEach(item => {
+//     item.addEventListener('click', function(e) {
+//         e.preventDefault();
+//         const camisa = {
+//             id: this.getAttribute('data-id'),
+//             nome: this.querySelector('.produtos_nome').textContent.trim(),
+//             preco: this.querySelector('.valor-produto').textContent.trim(),
+//             precoParcelado: this.querySelector('.valor-parcelado').textContent.trim(),
+//             parcelas: this.querySelector('.parcelas').textContent.trim(),
+//             imagem: this.querySelector('.produtos_imagem').getAttribute('src'),
+//             descricao: this.querySelector('.produtos_nome').textContent.trim()
+//         };
+//         localStorage.setItem('camisaSelecionada', JSON.stringify(camisa));
+//         window.location.href = '/src/pages/produto/produto.html';
+//     });
+// });
