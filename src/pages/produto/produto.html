@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Soccer Store</title>
     <link rel="shortcut icon" href="/src/images/icon/ico.png" type="image/x-icon">
-    <link rel="stylesheet" href="/../../global.css">
-
-    <script src="/src/scripts/scripts.js" defer></script>
+    <link rel="stylesheet" href="/global.css">
 </head>
 
 <body>
@@ -25,37 +23,35 @@
     <!-- Inicio do Produto -->
     <main class="container">
         <!-- Nome do Produto Responsivo -->
-        <h1 class="produto-nome">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h1>
+        <h1 class="produto_nome"></h1>
 
         <!-- Imagem do Produto -->
-        <div class="grid-produto">
+        <div class="grid-produto" id="produto-id">
             <div class="grid-produto_img">
-                <img src="/src/images/produto/corinthians.jpg" alt="">
+                <img class="produto_imagem" src="" alt="Imagem do produto selecionado">
             </div>
 
             <div class="grid-produto_main">
                 <!-- Nome do Produto Desktop -->
-                <h1 class="produto-nome">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h2>
+                <h1 class="produto_nome"></h1>
 
                 <!-- Preço e forms -->
-                <div class="produtos_preco">R$ <span class="valor-produto">314,99</span> no Pix</div>
-                <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">349,99</span> em até
-                    <span class="parcelas">7</span>x
-                </div>
+                <div class="produto_preco"></div>
+                <div class="produto_parcelado"></div>
 
                 <hr>
 
-                <p class="produto-descricao">Faça parte da batalha contra o racismo com a Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina! Pioneiro contra o preconceito racial, o Corinthians e o Observatório da Discriminação Racial no Futebol entram em campo na luta antirracista, promovendo o novo manto para a temporada, que é mais do que uma peça, e sim, um símbolo da busca pela igualdade e combate a segregação. Com emblema do lado esquerdo do peito, essa camisa do Corinthians possui degradê do branco ao preto das mangas até a barra. O interior da gola possui selo com o escrito antirracista “Tamo Junto e Misturado.” Faça parte da história e compre já a sua!</p>
+                <p class="produto_descricao"></p>
 
                 <hr>
 
-                <form action="#" method="post" class="selecao-produto">
+                <form method="post" class="selecao-produto">
                     <div class="produto-tamanho">
                         <input type="radio" id="pp" name="tamanho" value="pp" required disabled>
                         <label for="pp">PP</label>
                         <input type="radio" id="p" name="tamanho" value="p">
                         <label for="p">P</label>
-                        <input type="radio" id="m" name="tamanho" value="m" >
+                        <input type="radio" id="m" name="tamanho" value="m">
                         <label for="m">M</label>
                         <input type="radio" id="g" name="tamanho" value="g">
                         <label for="g">G</label>
@@ -63,13 +59,13 @@
                         <label for="gg">GG</label>
                     </div>
 
-                    
+
                     <div class="produto-compra">
                         <div>
                             <!--<label for="qtde">Qtde.:</label>-->
                             <select name="qtde" id="qtde" class="produto-qtde" required>
                                 <option value="" disabled selected>Quantidade</option>
-                                <option value="1" >1</option>
+                                <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
@@ -78,11 +74,10 @@
                                 <option value="7">7</option>
                                 <option value="8">8</option>
                                 <option value="9">9</option>
-                                <option value="10">10</option>  
+                                <option value="10">10</option>
                             </select>
                         </div>
-                        
-                        <input type="submit" id="buy-now" value="Comprar" class="btn btn-compra">
+                        <button id="buy-now" class="btn btn-compra" type="button" onclick="validateSelection()">Comprar</button>
                     </div>
 
                 </form>
@@ -93,12 +88,13 @@
                 <h3>Características do Produto</h3>
 
                 <ul class="spec-list">
-                    <li><strong>Nome:</strong> <span id="spec-nome">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</span></li>
+                    <li><strong>Nome:</strong> <span id="spec-nome">Camisa Corinthians I 24/25 s/n° Torcedor Nike
+                            Masculina</span></li>
                     <li><strong>Clube:</strong> <span id="spec-clube">Corinthians SP</span></li>
                     <li><strong>Gênero:</strong> <span id="spec-genero">Masculino</span></li>
                     <li><strong>Gola:</strong> <span id="spec-gola">Gola Careca</span></li>
                     <li><strong>Material:</strong> <span id="spec-material">Poliéster</span></li>
-                    <li><strong>Manga:</strong> <span id="spec-">Manga Curta</span></li>
+                    <li><strong>Manga:</strong> <span id="spec-manga">Manga Curta</span></li>
                     <li><strong>Marca:</strong> <span id="spec-marca">Nike</span></li>
                 </ul>
             </div>
@@ -106,11 +102,28 @@
     </main>
     <!-- Fim do Produto -->
 
-
-
     <!-- Footer -->
     <div id="footer"></div>
 
+    <!-- Scripts -->
+    <script src="/src/scripts/produto.js"></script>
+    <script src="/src/scripts/scripts.js" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Inclui dinamicamente o produto.js após o DOM estar pronto
+        var script = document.createElement('script');
+        script.src = '/src/scripts/produto.js';
+        document.body.appendChild(script);
+
+        // Após carregar produto.js, define o id da div grid-produto
+        script.onload = function() {
+          const camisaSelecionada = JSON.parse(localStorage.getItem('camisaSelecionada'));
+          if (camisaSelecionada && camisaSelecionada.id) {
+            document.querySelector('.grid-produto').setAttribute('id', camisaSelecionada.id);
+          }
+        };
+      });
+    </script>
 </body>
 
 </html>
