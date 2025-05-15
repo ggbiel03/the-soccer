@@ -1331,6 +1331,51 @@ p + p {
     display: none;
 }
 
+.produto-compra .quantidade-custom-select input[type="text"] {
+  width: 100%;
+  cursor: pointer;
+  background: #fff;
+  color: #222;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.75em 1em;
+  font-size: 1rem;
+  margin-bottom: 0.5em;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+.produto-compra .quantidade-custom-select ul {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.produto-compra .quantidade-custom-select ul li {
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.produto-compra .quantidade-custom-select ul li:hover {
+  background: #f0f0f0;
+}
+
+.produto-compra .quantidade-custom-select {
+  position: relative;
+}
+
+.produto-compra .quantidade-custom-select input.input-error {
+  border: 1.5px solid #e74c3c;
+}
+
 @media (min-width: 769px) {
 	.grid-produto {
 		grid-template-areas:

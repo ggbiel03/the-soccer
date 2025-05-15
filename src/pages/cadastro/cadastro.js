@@ -13,7 +13,7 @@ function handleCadastroSubmit(event) {
     email: formData.get("email-cadastro"),
     senha: formData.get("senha-cadastro"),
     nome: formData.get("nome"),
-    perfil: formData.get("estado"),
+    perfil: formData.get("perfil"),
   };
   // Chamada à API para criar usuário
   fetch("http://127.0.0.1:5000/cadastro", {

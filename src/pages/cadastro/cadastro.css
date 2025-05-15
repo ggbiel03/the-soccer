@@ -1,0 +1,46 @@
+/* ...existing code... */
+.cadastro .perfil-custom-select input[type="text"] {
+  width: 100%;
+  cursor: pointer;
+  background: #fff;
+  color: #222;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.75em 1em;
+  font-size: 1rem;
+  margin-bottom: 0.5em;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+.cadastro .perfil-custom-select ul {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cadastro .perfil-custom-select ul li {
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.cadastro .perfil-custom-select ul li:hover {
+  background: #f0f0f0;
+}
+
+.cadastro .perfil-custom-select {
+  position: relative;
+}
+
+.cadastro .perfil-custom-select input.input-error {
+  border: 1.5px solid #e74c3c;
+}
+/* ...existing code... */

@@ -122,11 +122,10 @@
         document.getElementById('buy-now').addEventListener('click', function() {
             const nome = document.querySelector('.produto-nome').textContent;
             const tamanho = document.querySelector('input[name="tamanho"]:checked')?.value;
-            const quantidade = document.getElementById('qtde').value;
-
+            const quantidade = document.getElementById('qtde-input').getAttribute('data-value');
             if (tamanho && quantidade) {
                 localStorage.setItem('produtoSelecionado', JSON.stringify({ nome, tamanho, quantidade }));
-                alert('Produto adicionado ao carrinho!');
+                window.location.href = '/src/pages/pedidos/checkout.html';
             } else {
                 alert('Por favor, selecione o tamanho e a quantidade.');
             }
