@@ -37,14 +37,8 @@
       <div class="lp-filters">
         <input type="text" id="searchInput" class="lp-input" placeholder="Buscar camisetas...">
       
-        <select id="filterSelect" class="lp-select">
-          <option value="">Filtrar por Tipo</option>
-          <option value="Titular">Titular</option>
-          <option value="Reserva">Reserva</option>
-        </select>
-      
         <select id="filterTime" class="lp-select">
-          <option value="">Filtrar por Time</option>
+          <option value="" disabled selected>Time</option>
           <option value="Corinthians">Corinthians</option>
           <option value="Palmeiras">Palmeiras</option>
           <option value="Santos">Santos</option>
@@ -86,21 +80,32 @@
       <form id="camisetaForm" class="lp-form">
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <input id="camisetaNome" placeholder="Nome da Camiseta" required style="flex: 1" />
-          <input id="camisetaTime" placeholder="Time" required style="flex: 1" />
+          <select id="camisetaTime" required style="flex: 1">
+            <option value="" disabled selected>Time</option>
+            <option value="Corinthians">Corinthians</option>
+            <option value="Palmeiras">Palmeiras</option>
+            <option value="Santos">Santos</option>
+            <option value="São Paulo">São Paulo</option>
+          </select>
         </div>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <select id="camisetaTipo" required style="flex: 1">
-            <option value="">Tipo</option>
-            <option value="Titular">Titular</option>
-            <option value="Reserva">Reserva</option>
-            <option value="Terceiro Uniforme">Terceiro Uniforme</option>
-            <option value="Retrô">Retrô</option>
-          </select>
           <input type="number" id="camisetaPreco" placeholder="Preço (R$)" required style="flex: 1" />
         </div>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <input type="number" id="camisetaEstoque" placeholder="Estoque" required style="flex: 1" />
-          <input id="camisetaImagem" placeholder="URL da Imagem" style="flex: 1" />
+          <select id="camisetaImagemVar" required style="flex: 1">
+            <option value="" disabled selected>Escolha a camisa</option>
+            <option value="corinthians1">Camisa Corinthians I 24/25</option>
+            <option value="corinthians2">Camisa Corinthians II 24/25</option>
+            <option value="corinthians3">Camisa Corinthians III 24/25</option>
+            <option value="palmeiras1">Camisa Palmeiras I 24/25</option>
+            <option value="palmeiras2">Camisa Palmeiras II 24/25</option>
+            <option value="santos1">Camisa Santos I 24/25</option>
+            <option value="santos2">Camisa Santos II 24/25</option>
+            <option value="saopaulo1">Camisa São Paulo I 24/25</option>
+            <option value="saopaulo2">Camisa São Paulo II 24/25</option>
+          </select>
+          <img id="previewImagem" src="" alt="Prévia da Imagem" style="max-height: 60px; display: none; border: 1px solid #ccc;"/>
         </div>
 
         <fieldset>

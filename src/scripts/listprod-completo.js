@@ -10,13 +10,35 @@ document.addEventListener('DOMContentLoaded', () => {
   let editIndex = null;
   window.camisetas = window.camisetas || [];
 
+  // Mapeamento das variáveis para caminhos de imagem
+  const mapaImagens = {
+    corinthians1: '/src/images/produto/corinthians.jpg',
+    corinthians2: '/src/images/produto/corinthians2.jpg',
+    corinthians3: '/src/images/produto/corinthians3.jpg',
+    palmeiras1: '/src/images/produto/palmeiras.jpg',
+    palmeiras2: '/src/images/produto/palmeiras2.jpg',
+    santos1: '/src/images/produto/santos.jpg',
+    santos2: '/src/images/produto/santos2.jpg',
+    saopaulo1: '/src/images/produto/saopaulo.jpg',
+    saopaulo2: '/src/images/produto/saopaulo2.jpg'
+  };
+
   function preencherFormulario(camiseta) {
     form['camisetaNome'].value = camiseta.nome;
     form['camisetaTime'].value = camiseta.time;
-    form['camisetaTipo'].value = camiseta.tipo;
     form['camisetaPreco'].value = camiseta.preco;
     form['camisetaEstoque'].value = camiseta.estoque;
-    form['camisetaImagem'].value = camiseta.imagem;
+    if (form['camisetaImagemVar']) {
+      form['camisetaImagemVar'].value = camiseta.imagemVar || '';
+      // Atualiza a prévia ao editar
+      if (mapaImagens[camiseta.imagemVar]) {
+        previewImagem.src = mapaImagens[camiseta.imagemVar];
+        previewImagem.style.display = 'block';
+      } else {
+        previewImagem.src = '';
+        previewImagem.style.display = 'none';
+      }
+    }
     form['camisetaDestaque'].checked = camiseta.destaque;
   }
 
@@ -45,17 +67,44 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => modal.style.display = 'none');
   });
 
-  form.addEventListener('submit', (e) => {
+  // Adiciona pré-visualização da imagem ao selecionar a variável
+  const selectImagemVar = document.getElementById('camisetaImagemVar');
+  const previewImagem = document.getElementById('previewImagem');
+  if (selectImagemVar && previewImagem) {
+    selectImagemVar.addEventListener('change', function() {
+      const valor = selectImagemVar.value;
+      if (mapaImagens[valor]) {
+        previewImagem.src = mapaImagens[valor];
+        previewImagem.style.display = 'block';
+      } else {
+        previewImagem.src = '';
+        previewImagem.style.display = 'none';
+      }
+    });
+  }
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const nova = {
       nome: form['camisetaNome'].value,
       time: form['camisetaTime'].value,
-      tipo: form['camisetaTipo'].value,
       preco: parseFloat(form['camisetaPreco'].value),
       estoque: parseInt(form['camisetaEstoque'].value),
-      imagem: form['camisetaImagem'].value || '',
+      imagemVar: form['camisetaImagemVar'].value, // variável da camisa
+      imagem: mapaImagens[form['camisetaImagemVar'].value] || '', // caminho real
       destaque: form['camisetaDestaque'].checked
     };
+
+    try {
+      const response = await fetch('https://sua-api.com/camisetas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nova)
+      });
+      if (!response.ok) throw new Error('Erro ao cadastrar');
+    } catch (err) {
+      alert('Erro ao cadastrar: ' + err.message);
+    }
 
     if (editIndex !== null) {
       camisetas[editIndex] = nova;
@@ -65,6 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modal.style.display = 'none';
     if (typeof render === 'function') render();
+
+    if (nova.destaque) {
+      window.location.href = '/index.html';
+    }
   });
 });
 
@@ -74,75 +127,83 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.camisetas = [
     {
-      nome: 'Camisa Corinthians I 2023',
+      nome: 'Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina',
       time: 'Corinthians',
-      tipo: 'Titular',
-      preco: 289.90,
+      tipo: '',
+      preco: 344.99,
       estoque: 30,
       destaque: true,
+      imagemVar: 'corinthians1',
       imagem: '/src/images/produto/corinthians.jpg',
     },
     {
-      nome: 'Camisa Corinthians II 2023',
+      nome: 'Camisa Corinthians Pré-Jogo 25/25 s/n° Nike Masculina',
       time: 'Corinthians',
-      tipo: 'Reserva',
-      preco: 279.90,
+      tipo: '',
+      preco: 354.99,
       estoque: 28,
       destaque: false,
-      imagem: '/src/images/produto//corinthians2.jpg',
+      imagemVar: 'corinthians2',
+      imagem: '/src/images/produto/corinthians2.jpg',
     },
     {
-      nome: 'Camisa Palmeiras I 2023',
+      nome: 'Camisa Palmeiras Torcedora HOME 25/25 s/n° Puma Masculina',
       time: 'Palmeiras',
-      tipo: 'Titular',
-      preco: 289.90,
+      tipo: '',
+      preco: 314.99,
       estoque: 35,
       destaque: true,
+      imagemVar: 'palmeiras1',
       imagem: '/src/images/produto/palmeiras.jpg',
     },
     {
-      nome: 'Camisa Palmeiras II 2023',
+      nome: 'Camisa Palmeiras Torcedor HOME 25/25 s/n° Puma Masculina',
       time: 'Palmeiras',
-      tipo: 'Reserva',
-      preco: 279.90,
+      tipo: '',
+      preco: 314.99,
       estoque: 29,
       destaque: false,
+      imagemVar: 'palmeiras2',
       imagem: '/src/images/produto/palmeiras2.jpg',
     },
     {
-      nome: 'Camisa Santos I 2023',
+      nome: 'Camisa Santos Jogador 23/23 s/n° Umbro Masculina',
       time: 'Santos',
-      tipo: 'Titular',
-      preco: 269.90,
+      tipo: '',
+      preco: 319.99,
       estoque: 20,
       destaque: true,
+      imagemVar: 'santos1',
       imagem: '/src/images/produto/santos.jpg',
     },
     {
-      nome: 'Camisa Santos II 2023',
+      nome: 'Camisa Santos Torcedor 25/25 s/n° Umbro Masculina',
       time: 'Santos',
-      tipo: 'Reserva',
-      preco: 259.90,
+      tipo: '',
+      preco: 339.99,
       estoque: 18,
       destaque: false,
+      imagemVar: 'santos2',
       imagem: '/src/images/produto/santos2.jpg',
     },
     {
-      nome: 'Camisa São Paulo I 2023',
+      nome: 'Camisa Torcedor SPFC 24/24 s/n° Masculina New Balance',
       time: 'São Paulo',
-      tipo: 'Titular',
-      preco: 289.90,
+      tipo: '',
+      preco: 299.99,
       estoque: 33,
       destaque: true,
+      imagemVar: 'saopaulo1',
       imagem: '/src/images/produto/saopaulo.jpg',
     },
     {
-      nome: 'Camisa São Paulo II 2023',
+      nome: 'Camisa Jogador Home SPFC 25/25 s/n° Masculina New Balance',
       time: 'São Paulo',
-      tipo: 'Reserva',
-      preco: 279.90,
+      tipo: '',
+      preco: 399.99,
       estoque: 26,
       destaque: false,
+      imagemVar: 'saopaulo2',
       imagem: '/src/images/produto/saopaulo2.jpg',
     }
   ];
