@@ -42,6 +42,10 @@
           />
         </div>
 
+        <div class="produtos_itens" id="shop-dinamico">
+          <!-- Produtos do backend serão carregados dinamicamente aqui -->
+        </div>
+
         <div class="produtos_itens">
           <!-- Inicio Bloco Produto -->
           <a href="/src/pages/produto/corinthians/corinthians1.html" class="camiseta-item" data-id="corinthians1">
@@ -219,5 +223,40 @@
     </main>
     <!-- Footer -->
     <div id="footer"></div>
+
+    <script>
+      async function carregarShop() {
+        const container = document.getElementById('shop-dinamico');
+        if (!container) return;
+        try {
+          const resp = await fetch('https://sua-api.com/camisetas');
+          if (!resp.ok) throw new Error('Erro ao buscar produtos');
+          const camisetas = await resp.json();
+          if (camisetas.length > 0) {
+            camisetas.forEach(c => {
+              const a = document.createElement('a');
+              a.className = 'camiseta-item';
+              a.href = c.link || '#';
+              a.innerHTML = `
+                <article class="produtos_produto">
+                  <img src="${c.imagem}" class="produtos_imagem" alt="${c.nome}">
+                  <h3 class="produtos_nome">${c.nome}</h3>
+                  <div class="produtos_preco">R$ <span class="valor-produto">${c.preco.toFixed(2)}</span> no Pix</div>
+                  <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">${(c.preco * 1.1).toFixed(2)}</span> em até <span class="parcelas">7</span>x</div>
+                </article>
+              `;
+              container.insertBefore(a, container.firstChild);
+            });
+          }
+        } catch (e) {
+          // Não sobrescreve os produtos estáticos, apenas exibe erro se necessário
+          const erro = document.createElement('p');
+          erro.textContent = 'Erro ao carregar produtos do backend.';
+          erro.style.color = 'red';
+          container.appendChild(erro);
+        }
+      }
+      carregarShop();
+    </script>
   </body>
 </html>

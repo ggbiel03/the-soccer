@@ -1,5 +1,5 @@
 // === listprod-integrado.js ===
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   if (!window.location.pathname.includes('listprod.html')) return;
 
   const modal = document.getElementById('modalForm');
@@ -22,6 +22,19 @@ document.addEventListener('DOMContentLoaded', () => {
     saopaulo1: '/src/images/produto/saopaulo.jpg',
     saopaulo2: '/src/images/produto/saopaulo2.jpg'
   };
+
+  // Buscar camisetas do backend ao carregar a página
+  try {
+    const resp = await fetch('https://sua-api.com/camisetas');
+    if (resp.ok) {
+      const camisetasBackend = await resp.json();
+      if (Array.isArray(camisetasBackend) && camisetasBackend.length > 0) {
+        window.camisetas = camisetasBackend;
+      }
+    }
+  } catch (e) {
+    // Se der erro, mantém os dados locais
+  }
 
   function preencherFormulario(camiseta) {
     form['camisetaNome'].value = camiseta.nome;
