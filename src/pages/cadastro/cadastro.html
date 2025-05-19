@@ -56,71 +56,27 @@
                 required=""
               />
             </fieldset>
-            <div class="flex-column">
-              <label>Perfil</label>
-              <div class="perfil-custom-select" style="position: relative">
-                <input
-                  type="text"
-                  id="perfil-input"
-                  name="perfil"
-                  placeholder="Selecione"
-                  readonly
-                  required
-                  style="
-                    width: 100%;
-                    cursor: pointer;
-                    background: #fff;
-                    color: #222;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                    padding: 0.75em 1em;
-                    font-size: 1rem;
-                    margin-bottom: 0.5em;
-                    box-sizing: border-box;
-                    transition: border 0.2s;
-                  "
-                />
-                <ul
-                  id="perfil-options"
-                  style="
-                    display: none;
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    background: #fff;
-                    border: 1px solid #ccc;
-                    border-radius: 0 0 4px 4px;
-                    z-index: 10;
-                    margin: 0;
-                    padding: 0;
-                    list-style: none;
-                  "
-                >
-                  <li
-                    data-value="admin"
-                    style="padding: 0.5em; cursor: pointer"
-                  >
-                    Admin
-                  </li>
-                  <li
-                    data-value="cliente"
-                    style="padding: 0.5em; cursor: pointer"
-                  >
-                    Cliente
-                  </li>
-                </ul>
+            <fieldset>
+              <label for="perfil">Perfil</label>
+                <div class="flex-column">
+                  <select id="estado" name="estado" required>
+                    <option value="admin">Admin</option>
+                    <option value="cliente">Cliente</option>
+                  </select>
+                </div>
               </div>
+            </fieldset>
+            <div class="login_links">
+              <button
+                class="login_change-btn voltar-login"
+                onclick="window.location.href='/src/pages/login/login.html'"
+                type="button"
+              >
+                Voltar
+              </button>
+              <input type="submit" value="Cadastrar"/>
             </div>
-          </div>
-          <div class="login_links">
-            <button
-              class="login_change-btn voltar-login"
-              onclick="window.location.href='/src/pages/login/login.html'"
-              type="button"
-            >
-              Voltar
-            </button>
-            <input type="submit" value="Cadastrar" />
+
           </div>
         </form>
       </div>
