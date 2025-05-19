@@ -1,167 +1,248 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Soccer Store - Login</title>
+    <link
+      rel="shortcut icon"
+      href="/src/images/icon/ico.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/../../global.css" />
+    <link rel="stylesheet" href="./cadastro.css" />
+    <script src="./cadastro.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Soccer Store - Login</title>
-  <link rel="shortcut icon" href="/src/images/icon/ico.png" type="image/x-icon" />
-  <link rel="stylesheet" href="/../../global.css" />
-  <link rel="stylesheet" href="./cadastro.css" />
-  <script src="../cadastro.js"></script>
-</head>
-
-<body>
-  <div class="login-bc">
-    <div class="login-bc_blur">
-      <div class="login-bc_blob"></div>
+  <body>
+    <div class="login-bc">
+      <div class="login-bc_blur">
+        <div class="login-bc_blob"></div>
+      </div>
     </div>
-  </div>
-  <div class="login">
-    <!-- Início Cadastro -->
-    <div class="login_form login_form--active" id="cadastro">
-      <h2>Cadastre-se</h2>
+    <div class="login">
+      <!-- Início Cadastro -->
+      <div class="login_form login_form--active" id="cadastro">
+        <h2>Cadastre-se</h2>
 
-      <form action="" method="post" class="form" id="form-cadastro">
-        <div class="half">
-          <fieldset>
-            <label for="email-cadastro">Email</label>
-            <input type="email" name="email-cadastro" id="email-cadastro" placeholder="Insira seu Email" required="">
+        <form action="" method="post" class="form" id="form-cadastro">
+          <div class="half">
+            <fieldset>
+              <label for="email-cadastro">Email</label>
+              <input
+                type="email"
+                name="email-cadastro"
+                id="email-cadastro"
+                placeholder="Insira seu Email"
+                required=""
+              />
 
-            <label for="senha-cadastro">Senha</label>
-            <input type="password" name="senha-cadastro" id="senha-cadastro" placeholder="Insira sua senha" required="">
-            <hr>
+              <label for="senha-cadastro">Senha</label>
+              <input
+                type="password"
+                name="senha-cadastro"
+                id="senha-cadastro"
+                placeholder="Insira sua senha"
+                required=""
+              />
+              <hr />
 
-            <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome" placeholder="Insira seu nome" required="">
-          </fieldset>
-          <div class="flex-column">
-            <label>Perfil</label>
-            <div class="perfil-custom-select" style="position: relative;">
-              <input type="text" id="perfil-input" name="perfil" placeholder="Selecione" readonly required style="width: 100%; cursor: pointer; background: #fff; color: #222; border: 1px solid #ccc; border-radius: 4px; padding: 0.75em 1em; font-size: 1rem; margin-bottom: 0.5em; box-sizing: border-box; transition: border 0.2s;" />
-              <ul id="perfil-options" style="display: none; position: absolute; left: 0; right: 0; background: #fff; border: 1px solid #ccc; border-radius: 0 0 4px 4px; z-index: 10; margin: 0; padding: 0; list-style: none;">
-                <li data-value="admin" style="padding: 0.5em; cursor: pointer;">Admin</li>
-                <li data-value="cliente" style="padding: 0.5em; cursor: pointer;">Cliente</li>
-              </ul>
+              <label for="nome">Nome</label>
+              <input
+                type="text"
+                name="nome"
+                id="nome"
+                placeholder="Insira seu nome"
+                required=""
+              />
+            </fieldset>
+            <div class="flex-column">
+              <label>Perfil</label>
+              <div class="perfil-custom-select" style="position: relative">
+                <input
+                  type="text"
+                  id="perfil-input"
+                  name="perfil"
+                  placeholder="Selecione"
+                  readonly
+                  required
+                  style="
+                    width: 100%;
+                    cursor: pointer;
+                    background: #fff;
+                    color: #222;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    padding: 0.75em 1em;
+                    font-size: 1rem;
+                    margin-bottom: 0.5em;
+                    box-sizing: border-box;
+                    transition: border 0.2s;
+                  "
+                />
+                <ul
+                  id="perfil-options"
+                  style="
+                    display: none;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    background: #fff;
+                    border: 1px solid #ccc;
+                    border-radius: 0 0 4px 4px;
+                    z-index: 10;
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                  "
+                >
+                  <li
+                    data-value="admin"
+                    style="padding: 0.5em; cursor: pointer"
+                  >
+                    Admin
+                  </li>
+                  <li
+                    data-value="cliente"
+                    style="padding: 0.5em; cursor: pointer"
+                  >
+                    Cliente
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="login_links">
-          <button class="login_change-btn voltar-login"
-            onclick="window.location.href='/src/pages/login/login.html'" type="button">Voltar</button> <input type="submit"
-            value="Cadastrar">
-        </div>
-      </form>
-
+          <div class="login_links">
+            <button
+              class="login_change-btn voltar-login"
+              onclick="window.location.href='/src/pages/login/login.html'"
+              type="button"
+            >
+              Voltar
+            </button>
+            <input type="submit" value="Cadastrar" />
+          </div>
+        </form>
+      </div>
+      <!-- Fim Cadastro -->
     </div>
-    <!-- Fim Cadastro -->
-
-
-  </div>
-  <!-- Code injected by live-server -->
-  <script>
-    // <![CDATA[  <-- For SVG support
-    if ('WebSocket' in window) {
-      (function () {
-        function refreshCSS() {
-          var sheets = [].slice.call(document.getElementsByTagName("link"));
-          var head = document.getElementsByTagName("head")[0];
-          for (var i = 0; i < sheets.length; ++i) {
-            var elem = sheets[i];
-            var parent = elem.parentElement || head;
-            parent.removeChild(elem);
-            var rel = elem.rel;
-            if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-              var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-              elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+    <!-- Code injected by live-server -->
+    <script>
+      // <![CDATA[  <-- For SVG support
+      if ("WebSocket" in window) {
+        (function () {
+          function refreshCSS() {
+            var sheets = [].slice.call(document.getElementsByTagName("link"));
+            var head = document.getElementsByTagName("head")[0];
+            for (var i = 0; i < sheets.length; ++i) {
+              var elem = sheets[i];
+              var parent = elem.parentElement || head;
+              parent.removeChild(elem);
+              var rel = elem.rel;
+              if (
+                (elem.href && typeof rel != "string") ||
+                rel.length == 0 ||
+                rel.toLowerCase() == "stylesheet"
+              ) {
+                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, "");
+                elem.href =
+                  url +
+                  (url.indexOf("?") >= 0 ? "&" : "?") +
+                  "_cacheOverride=" +
+                  new Date().valueOf();
+              }
+              parent.appendChild(elem);
             }
-            parent.appendChild(elem);
           }
-        }
-        var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-        var address = protocol + window.location.host + window.location.pathname + '/ws';
-        var socket = new WebSocket(address);
-        socket.onmessage = function (msg) {
-          if (msg.data == 'reload') window.location.reload();
-          else if (msg.data == 'refreshcss') refreshCSS();
-        };
-        if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-          console.log('Live reload enabled.');
-          sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-        }
-      })();
-    }
-    else {
-      console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-    }
-    // ]]>
-  </script>
+          var protocol =
+            window.location.protocol === "http:" ? "ws://" : "wss://";
+          var address =
+            protocol + window.location.host + window.location.pathname + "/ws";
+          var socket = new WebSocket(address);
+          socket.onmessage = function (msg) {
+            if (msg.data == "reload") window.location.reload();
+            else if (msg.data == "refreshcss") refreshCSS();
+          };
+          if (
+            sessionStorage &&
+            !sessionStorage.getItem("IsThisFirstTime_Log_From_LiveServer")
+          ) {
+            console.log("Live reload enabled.");
+            sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+          }
+        })();
+      } else {
+        console.error(
+          "Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading."
+        );
+      }
+      // ]]>
+    </script>
 
-  <script>
-    // Corrige bug do select não abrir ao clicar
-    document.addEventListener('DOMContentLoaded', function() {
-      var selects = document.querySelectorAll('select');
-      selects.forEach(function(select) {
-        select.addEventListener('mousedown', function(e) {
-          if (this.disabled) {
+    <script>
+      // Corrige bug do select não abrir ao clicar
+      document.addEventListener("DOMContentLoaded", function () {
+        var selects = document.querySelectorAll("select");
+        selects.forEach(function (select) {
+          select.addEventListener("mousedown", function (e) {
+            if (this.disabled) {
+              e.preventDefault();
+            }
+          });
+          // Força o foco ao clicar
+          select.addEventListener("click", function (e) {
+            this.focus();
+          });
+        });
+      });
+
+      // Custom select para perfil
+      document.addEventListener("DOMContentLoaded", function () {
+        var input = document.getElementById("perfil-input");
+        var options = document.getElementById("perfil-options");
+        var form = document.getElementById("form-cadastro");
+
+        input.addEventListener("click", function (e) {
+          options.style.display =
+            options.style.display === "block" ? "none" : "block";
+        });
+
+        options.querySelectorAll("li").forEach(function (option) {
+          option.addEventListener("click", function (e) {
+            input.value = option.textContent;
+            input.setAttribute("data-value", option.getAttribute("data-value"));
+            options.style.display = "none";
+            input.classList.remove("input-error");
+          });
+        });
+
+        // Fecha o dropdown ao clicar fora
+        document.addEventListener("click", function (e) {
+          if (!input.contains(e.target) && !options.contains(e.target)) {
+            options.style.display = "none";
+          }
+        });
+
+        // Validação para garantir que o campo foi selecionado
+        form.addEventListener("submit", function (e) {
+          if (!input.value) {
+            input.classList.add("input-error");
+            input.focus();
             e.preventDefault();
+          } else {
+            // Adiciona o valor real ao formData
+            var hidden = document.getElementById("perfil-hidden");
+            if (!hidden) {
+              hidden = document.createElement("input");
+              hidden.type = "hidden";
+              hidden.name = "perfil";
+              hidden.id = "perfil-hidden";
+              form.appendChild(hidden);
+            }
+            hidden.value = input.getAttribute("data-value");
           }
         });
-        // Força o foco ao clicar
-        select.addEventListener('click', function(e) {
-          this.focus();
-        });
       });
-    });
-
-    // Custom select para perfil
-    document.addEventListener('DOMContentLoaded', function() {
-      var input = document.getElementById('perfil-input');
-      var options = document.getElementById('perfil-options');
-      var form = document.getElementById('form-cadastro');
-
-      input.addEventListener('click', function(e) {
-        options.style.display = options.style.display === 'block' ? 'none' : 'block';
-      });
-
-      options.querySelectorAll('li').forEach(function(option) {
-        option.addEventListener('click', function(e) {
-          input.value = option.textContent;
-          input.setAttribute('data-value', option.getAttribute('data-value'));
-          options.style.display = 'none';
-          input.classList.remove('input-error');
-        });
-      });
-
-      // Fecha o dropdown ao clicar fora
-      document.addEventListener('click', function(e) {
-        if (!input.contains(e.target) && !options.contains(e.target)) {
-          options.style.display = 'none';
-        }
-      });
-
-      // Validação para garantir que o campo foi selecionado
-      form.addEventListener('submit', function(e) {
-        if (!input.value) {
-          input.classList.add('input-error');
-          input.focus();
-          e.preventDefault();
-        } else {
-          // Adiciona o valor real ao formData
-          var hidden = document.getElementById('perfil-hidden');
-          if (!hidden) {
-            hidden = document.createElement('input');
-            hidden.type = 'hidden';
-            hidden.name = 'perfil';
-            hidden.id = 'perfil-hidden';
-            form.appendChild(hidden);
-          }
-          hidden.value = input.getAttribute('data-value');
-        }
-      });
-    });
-  </script>
-
-</body>
-
+    </script>
+  </body>
 </html>

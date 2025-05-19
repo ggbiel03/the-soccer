@@ -3,6 +3,34 @@ document.addEventListener("DOMContentLoaded", function () {
   if (form) {
     form.addEventListener("submit", handleCadastroSubmit);
   }
+
+  // Verifica se existe um usuário admin ao carregar a página
+  fetch("http://127.0.0.1:5000/checkAdmin", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  })
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error("Erro na requisição: " + response.status);
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      console.log("Resposta do back-end:", data); // Log para depuração
+      if (data.exists) {
+        // Remove a opção admin se já existir um usuário admin
+        var adminOption = document.querySelector("li[data-value='admin']");
+        if (adminOption) {
+          adminOption.remove();
+          console.log("Opção 'Admin' removida do dropdown.");
+        } else {
+          console.warn("Opção 'Admin' não encontrada no DOM.");
+        }
+      }
+    })
+    .catch(function (error) {
+      console.error("Erro ao verificar usuário admin:", error);
+    });
 });
 
 function handleCadastroSubmit(event) {
@@ -31,7 +59,7 @@ function handleCadastroSubmit(event) {
       console.log("Usuário criado:", result);
       setTimeout(function () {
         window.location.href = "../login/login.html";
-      }, 1500); // Aguarda 1,5s antes de redirecionar
+      }, 2000); // Aguarda 2s antes de redirecionar
     })
     .catch(function (error) {
       exibirMensagem("Erro ao criar usuário");
