@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   var form = document.getElementById("form-cadastro");
   if (form) {
-    form.addEventListener("submit", handleCadastroSubmit);
+    form.addEventListener("submit", handleCadastroSubmit); // Adiciona o evento de envio no JavaScript
   }
 
   // Verifica se existe um usuário admin ao carregar a página
@@ -19,12 +19,14 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Resposta do back-end:", data); // Log para depuração
       if (data.exists) {
         // Remove a opção admin se já existir um usuário admin
-        var adminOption = document.querySelector("li[data-value='admin']");
+        var adminOption = document.querySelector(
+          "select[name='estado'] option[value='admin']"
+        );
         if (adminOption) {
           adminOption.remove();
-          console.log("Opção 'Admin' removida do dropdown.");
+          console.log("Opção 'Admin' removida do select.");
         } else {
-          console.warn("Opção 'Admin' não encontrada no DOM.");
+          console.warn("Opção 'Admin' não encontrada no select.");
         }
       }
     })
@@ -41,8 +43,9 @@ function handleCadastroSubmit(event) {
     email: formData.get("email-cadastro"),
     senha: formData.get("senha-cadastro"),
     nome: formData.get("nome"),
-    perfil: formData.get("perfil"),
+    perfil: formData.get("estado"), // Obtém o valor do campo 'estado'
   };
+
   // Chamada à API para criar usuário
   fetch("http://127.0.0.1:5000/cadastro", {
     method: "POST",
