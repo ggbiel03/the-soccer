@@ -107,29 +107,37 @@
     <div id="footer"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             const produtoSelecionado = JSON.parse(localStorage.getItem('produtoSelecionado'));
 
-            if (produtoSelecionado) {
-                const { nome, tamanho, quantidade } = produtoSelecionado;
+            if (produtoSelecionado && produtoSelecionado.id) {
+                try {
+                    const resp = await fetch(`https://sua-api.com/camisetas/${produtoSelecionado.id}`);
+                    if (!resp.ok) throw new Error('Erro ao buscar produto');
+                    const produto = await resp.json();
+                    const { nome, tamanho, quantidade } = produtoSelecionado;
+                    const precoUnitario = Number(produto.preco);
 
-                const pedidoItem = document.createElement('div');
-                pedidoItem.classList.add('pedido_item');
+                    const pedidoItem = document.createElement('div');
+                    pedidoItem.classList.add('pedido_item');
+                    pedidoItem.innerHTML = `
+                        <div class="pedido_desc">
+                            <h3 class="pedido_produto">${produto.nome}</h3>
+                            <span class="pedido_qtde">${quantidade}</span> un. | Tamanho: <span class="pedido_tamanho">${tamanho}</span>
+                        </div>
+                    `;
+                    document.querySelector('.sumario .pedido').appendChild(pedidoItem);
 
-                pedidoItem.innerHTML = `
-                    <div class="pedido_desc">
-                        <h3 class="pedido_produto">${nome}</h3>
-                        <span class="pedido_qtde">${quantidade}</span> un. | Tamanho: <span class="pedido_tamanho">${tamanho}</span>
-                    </div>
-                `;
-
-                document.querySelector('.sumario .pedido').appendChild(pedidoItem);
-
-                // Atualizar o subtotal e total
-                const precoUnitario = 314.99; // Exemplo de preço fixo por unidade
-                const subtotal = precoUnitario * quantidade;
-                document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
-                document.getElementById('total').textContent = `R$ ${subtotal.toFixed(2)}`;
+                    // Atualizar o subtotal e total
+                    const subtotal = precoUnitario * quantidade;
+                    document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+                    document.getElementById('total').textContent = `R$ ${subtotal.toFixed(2)}`;
+                } catch (e) {
+                    const erro = document.createElement('p');
+                    erro.textContent = 'Erro ao carregar produto do backend.';
+                    erro.style.color = 'red';
+                    document.querySelector('.sumario .pedido').appendChild(erro);
+                }
             }
         });
 

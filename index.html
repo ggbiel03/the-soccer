@@ -83,58 +83,6 @@
             </h2>
             <div class="produtos_itens" id="destaques-dinamicos">
                 <!-- Produtos do backend serão carregados dinamicamente aqui -->
-                <!-- Produtos estáticos já existentes abaixo -->
-                <!-- Inicio Bloco Produto -->
-                <a href="/src/pages/produto/corinthians/corinthians1.html" class="camiseta-item" data-id="corinthians1">
-                    <article class="produtos_produto">
-                        <img src="/src/images/produto/corinthians.jpg" class="produtos_imagem" alt="Camisa do corinthians">
-                        <h3 class="produtos_nome">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h3>
-                        <div class="produtos_preco">R$ <span class="valor-produto">314,99</span> no Pix</div>
-                        <div href="#" class="produtos_parcelas">ou R$ <span class="valor-parcelado">349,99</span> em até
-                            <span class="parcelas">7</span>x
-                        </div>
-                    </article>
-                </a>
-                <!-- Fim Bloco Produto -->
-
-                <!-- Inicio Bloco Produto -->
-                <a href="/src/pages/produto/saopaulo/saopaulo2.html" class="camiseta-item" data-id="saopaulo2">
-                    <article class="produtos_produto">
-                        <img src="/src/images/produto/saopaulo2.jpg" class="produtos_imagem" alt="Camisa do corinthians">
-                        <h3 class="produtos_nome">Camisa Torcedor SPFC 24/24 s/n° Masculina New Balance</h3>
-                        <div class="produtos_preco">R$ <span class="valor-produto">299,99</span> no Pix</div>
-                        <div href="#" class="produtos_parcelas">ou R$ <span class="valor-parcelado">319,99</span> em até
-                            <span class="parcelas">7</span>x
-                        </div>
-                    </article>
-                </a>
-                <!-- Fim Bloco Produto -->
-
-                <!-- Inicio Bloco Produto -->
-                <a href="/src/pages/produto/santos/santos1.html" class="camiseta-item" data-id="santos1">
-                    <article class="produtos_produto">
-                        <img src="/src/images/produto/santos.jpg" class="produtos_imagem" alt="Camisa do corinthians">
-                        <h3 class="produtos_nome">Camisa Santos Jogador 23/23 s/n° Umbro Masculina</h3>
-                        <div class="produtos_preco">R$ <span class="valor-produto">319,99</span> no Pix</div>
-                        <div href="#" class="produtos_parcelas">ou R$ <span class="valor-parcelado">349,99</span> em até
-                            <span class="parcelas">7</span>x
-                        </div>
-                    </article>
-                </a>
-                <!-- Fim Bloco Produto -->
-
-                <!-- Inicio Bloco Produto -->
-                <a href="/src/pages/produto/palmeiras/palmeiras2.html" class="camiseta-item" data-id="palmeiras2">
-                    <article class="produtos_produto">
-                        <img src="/src/images/produto/palmeiras2.jpg" class="produtos_imagem" alt="Camisa do corinthians">
-                        <h3 class="produtos_nome">Camisa Palmeiras Torcedor HOME 25/25 s/n° Puma Masculina</h3>
-                        <div class="produtos_preco">R$ <span class="valor-produto">314,99</span> no Pix</div>
-                        <div href="#" class="produtos_parcelas">ou R$ <span class="valor-parcelado">349,99</span> em até
-                            <span class="parcelas">7</span>x
-                        </div>
-                    </article>
-                </a>
-                <!-- Fim Bloco Produto -->
             </div>
         </div>
         <!-- Fim Novidades -->
@@ -188,6 +136,7 @@
                 const resp = await fetch('https://sua-api.com/camisetas?destaque=true');
                 if (!resp.ok) throw new Error('Erro ao buscar destaques');
                 const camisetas = await resp.json();
+                container.innerHTML = '';
                 if (camisetas.length > 0) {
                     camisetas.forEach(c => {
                         const a = document.createElement('a');
@@ -197,11 +146,11 @@
                           <article class="produtos_produto">
                             <img src="${c.imagem}" class="produtos_imagem" alt="${c.nome}">
                             <h3 class="produtos_nome">${c.nome}</h3>
-                            <div class="produtos_preco">R$ <span class="valor-produto">${c.preco.toFixed(2)}</span> no Pix</div>
-                            <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">${(c.preco * 1.1).toFixed(2)}</span> em até <span class="parcelas">7</span>x</div>
+                            <div class="produtos_preco">R$ <span class="valor-produto">${Number(c.preco).toFixed(2)}</span> no Pix</div>
+                            <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">${(Number(c.preco) * 1.1).toFixed(2)}</span> em até <span class="parcelas">7</span>x</div>
                           </article>
                         `;
-                        container.insertBefore(a, container.firstChild);
+                        container.appendChild(a);
                     });
                 }
             } catch (e) {
