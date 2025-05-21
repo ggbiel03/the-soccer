@@ -160,26 +160,26 @@ function abrirModalAdicionarCamiseta() {
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.location.pathname.includes("listprod.html")) return;
 
-  window.camisetas = [
-    {
-      nome: "Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina",
-      time: "Corinthians",
-      tipo: "",
-      preco: 344.99,
-      estoque: 30,
-      destaque: true,
-      imagemVar: "corinthians1",
-      imagem: "/src/images/produto/corinthians.jpg",
-    },
-    {
-      nome: "Camisa Corinthians Pré-Jogo 25/25 s/n° Nike Masculina",
-      time: "Corinthians",
-      tipo: "",
-      preco: 354.99,
-      estoque: 28,
-      destaque: false,
-      imagemVar: "corinthians2",
-      imagem: "/src/images/produto/corinthians2.jpg",
+  // // window.camisetas = [
+//     {
+//       nome: "Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina",
+//       time: "Corinthians",
+//       tipo: "",
+//       preco: 344.99,
+//       estoque: 30,
+//       destaque: true,
+//       imagemVar: "corinthians1",
+//       imagem: "/src/images/produto/corinthians.jpg",
+//     },
+//     {
+//       nome: "Camisa Corinthians Pré-Jogo 25/25 s/n° Nike Masculina",
+//       time: "Corinthians",
+//       tipo: "",
+//       preco: 354.99,
+//       estoque: 28,
+//       destaque: false,
+//       imagemVar: "corinthians2",
+//       imagem: "/src/images/produto/corinthians2.jpg",
     },
     {
       nome: "Camisa Palmeiras Torcedora HOME 25/25 s/n° Puma Masculina",
@@ -231,16 +231,16 @@ document.addEventListener("DOMContentLoaded", () => {
       imagemVar: "saopaulo1",
       imagem: "/src/images/produto/saopaulo.jpg",
     },
-    {
-      nome: "Camisa Jogador Home SPFC 25/25 s/n° Masculina New Balance",
-      time: "São Paulo",
-      tipo: "",
-      preco: 399.99,
-      estoque: 26,
-      destaque: false,
-      imagemVar: "saopaulo2",
-      imagem: "/src/images/produto/saopaulo2.jpg",
-    },
+    // {
+    //   nome: "Camisa Jogador Home SPFC 25/25 s/n° Masculina New Balance",
+    //   time: "São Paulo",
+    //   tipo: "",
+    //   preco: 399.99,
+    //   estoque: 26,
+    //   destaque: false,
+    //   imagemVar: "saopaulo2",
+    //   imagem: "/src/images/produto/saopaulo2.jpg",
+    // },
   ];
 
   const tableBody = document.getElementById("camisetaTableBody");
