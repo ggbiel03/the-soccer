@@ -187,46 +187,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterTime = document.getElementById("filterTime");
   const searchInput = document.getElementById("searchInput");
 
+  // Atualiza a função render para usar o template do HTML
   window.render = function () {
-    const tipoFiltro = filterSelect?.value || "";
-    const timeFiltro = filterTime?.value || "";
-    const busca = searchInput?.value.toLowerCase() || "";
+    const tableBody = document.getElementById("camisetaTableBody");
+    const countSpan = document.getElementById("camisetaCount");
+    const template = document.getElementById("camisetaRowTemplate");
 
     tableBody.innerHTML = "";
     let count = 0;
 
     camisetas.forEach((c, i) => {
-      const tipoClass =
-        "lp-tipo-" + (c.tipo ? c.tipo.replace(/\s+/g, "-") : "indefinido");
+      const clone = template.content.cloneNode(true);
 
-      const correspondeTipo = !tipoFiltro || c.tipo === tipoFiltro;
-      const correspondeTime = !timeFiltro || c.time === timeFiltro;
-      const correspondeBusca = !busca || c.nome.toLowerCase().includes(busca);
+      const img = clone.querySelector("img");
+      img.src = c.imagem || "/src/images/produto/placeholder.jpg";
+      img.alt = c.nome;
 
-      if (correspondeTipo && correspondeTime && correspondeBusca) {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td><img src="${
-            c.imagem || "/src/images/produto/placeholder.jpg"
-          }" alt="${
-          c.nome
-        }" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;"></td>
-          <td>${c.nome}</td>
-          <td>${c.time}</td>
-          <td><span class="lp-tag ${tipoClass}">${c.tipo}</span></td>
-          <td><strong>R$ ${c.preco.toFixed(2)}</strong></td>
-          <td>${c.estoque}</td>
-          <td style="color:${c.destaque ? "green" : "red"}">${
-          c.destaque ? "✓" : "✕"
-        }</td>
-          <td>
-            <button class="lp-btn lp-btn-edit" onclick="editarCamiseta(${i})">✏️</button>
-            <button class="lp-btn lp-btn-del" onclick="excluirCamiseta(${i})">🗑️</button>
-          </td>
-        `;
-        tableBody.appendChild(row);
-        count++;
-      }
+      clone.querySelector(".camiseta-nome").textContent = c.nome;
+      clone.querySelector(".camiseta-time").textContent = c.time;
+      clone.querySelector(".camiseta-tipo").textContent = c.tipo || "Indefinido";
+      clone.querySelector(".camiseta-preco").textContent = `R$ ${c.preco.toFixed(2)}`;
+      clone.querySelector(".camiseta-estoque").textContent = c.estoque;
+      clone.querySelector(".camiseta-destaque").textContent = c.destaque ? "✓" : "✕";
+      clone.querySelector(".camiseta-destaque").style.color = c.destaque ? "green" : "red";
+
+      const editButton = clone.querySelector(".lp-btn-edit");
+      editButton.addEventListener("click", () => editarCamiseta(i));
+
+      const deleteButton = clone.querySelector(".lp-btn-del");
+      deleteButton.addEventListener("click", () => excluirCamiseta(i));
+
+      tableBody.appendChild(clone);
+      count++;
     });
 
     countSpan.textContent = count;
@@ -261,43 +253,44 @@ function abrirModalEditarCamiseta(index) {
   document.getElementById("btnCloseEditModal").addEventListener("click", () => {
     modalEdit.style.display = "none";
   });
-
-  // Salva as alterações ao enviar o formulário
-  document.getElementById("camisetaEditForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const data = {
-      nome: document.getElementById("editCamisetaNome").value,
-      time: document.getElementById("editCamisetaTime").value,
-      preco: parseFloat(document.getElementById("editCamisetaPreco").value),
-      estoque: parseInt(document.getElementById("editCamisetaEstoque").value, 10),
-      imagemVar: document.getElementById("editCamisetaImagemVar").value,
-      descricao: document.getElementById("editDescricao").value,
-      destaque: document.getElementById("editCamisetaDestaque").checked,
-    };
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/editarCamiseta/${camiseta.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao editar a camiseta. Tente novamente mais tarde.");
-      }
-
-      alert("Camiseta editada com sucesso!");
-      modalEdit.style.display = "none";
-      if (typeof render === "function") render();
-    } catch (error) {
-      console.error("Erro ao editar a camiseta:", error);
-      alert("Erro ao editar a camiseta. Tente novamente mais tarde.");
-    }
-  });
 }
+
+// Submete o formulário de edição para o backend
+const formEdit = document.getElementById("camisetaEditForm");
+formEdit.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const data = {
+    nome: document.getElementById("editCamisetaNome").value,
+    time: document.getElementById("editCamisetaTime").value,
+    preco: parseFloat(document.getElementById("editCamisetaPreco").value),
+    estoque: parseInt(document.getElementById("editCamisetaEstoque").value, 10),
+    imagemVar: document.getElementById("editCamisetaImagemVar").value,
+    descricao: document.getElementById("editDescricao").value,
+    destaque: document.getElementById("editCamisetaDestaque").checked,
+  };
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/editarCamiseta/${window.camisetas[editIndex].id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao editar a camiseta. Tente novamente mais tarde.");
+    }
+
+    alert("Camiseta editada com sucesso!");
+    document.getElementById("modalEdit").style.display = "none";
+    if (typeof render === "function") render();
+  } catch (error) {
+    console.error("Erro ao editar a camiseta:", error);
+    alert("Erro ao editar a camiseta. Tente novamente mais tarde.");
+  }
+});
 
 // Função para excluir camiseta
 document.addEventListener("click", async (event) => {
