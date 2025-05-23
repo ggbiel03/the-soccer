@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Soccer Store</title>
+    <link rel="shortcut icon" href="/src/images/icon/ico.png" type="image/x-icon">
+    <link rel="stylesheet" href="/src/styles/owl.carousel.min.css">
+    <link rel="stylesheet" href="/src/styles/owl.theme.default.min.css">
+    <link rel="stylesheet" href="global.css">
+
+    <script src="/src/scripts/jquery-3.7.1.min.js"></script>
+    <script src="/src/scripts/owl.carousel.min.js"></script>
+    <script src="/src/scripts/scripts.js" defer></script>
+</head>
+
+<body>
+    <!-- Inicio Header -->
+    <header class="header" id="header"></header>
+    <!-- Fim da Header -->
+
+    <!-- Inicio Banner - Carrosel -->
+    <div class="banner">
+        <div class="container">
+            <div class="owl-carousel owl-theme">
+                <div class="item banner_item">
+                    <div class="banner_img">
+                        <img src="/src/images/banner/corinthians.png" alt="Jogador do Corinthians com Camisa Versão 1 24/25">
+                    </div>
+                    <div class="banner_info">
+                        <h2 class="banner_titulo">Faça parte da <br> batalha <br> contra o <br> racismo</h2>
+                        <p class="banner_modelo">Camisa Corinthians I 24/25</p>
+                        <a href="/src/pages/produto/corinthians/corinthians1.html" class="banner_btn">CONFIRA</a>
+                    </div>
+                </div>
+
+                <div class="item banner_item">
+                    <div class="banner_img">
+                        <img src="/src/images/banner/palmeiras.png" alt="Jogador do Palmeiras com Camisa Versão 1 24/25">
+                    </div>
+                    <div class="banner_info">
+                        <h2 class="banner_titulo">Mostre sua <br> força <br> com o <br> Verdão</h2>
+                        <p class="banner_modelo">Camisa Palmeiras I 24/25</p>
+                        <a href="/src/pages/produto/palmeiras/palmeiras1.html" class="banner_btn">CONFIRA</a>
+                    </div>
+                </div>
+
+                <div class="item banner_item">
+                    <div class="banner_img">
+                        <img src="/src/images/banner/santos.png" alt="Jogador do Santos com Camisa Versão 2 24/25">
+                    </div>
+                    <div class="banner_info">
+                        <h2 class="banner_titulo">Vista a <br> tradição <br> do <br> Peixe</h2>
+                        <p class="banner_modelo">Camisa Santos II 24/25</p>
+                        <a href="/src/pages/produto/santos/santos2.html" class="banner_btn">CONFIRA</a>
+                    </div>
+                </div>
+
+                <div class="item banner_item">
+                    <div class="banner_img">
+                        <img src="/src/images/banner/sao_paulo.png" alt="Jogador do São Paulo com Camisa Versão 2 24/25">
+                    </div>
+                    <div class="banner_info">
+                        <h2 class="banner_titulo">Carregue o <br> orgulho <br> do <br> Tricolor</h2>
+                        <p class="banner_modelo">Camisa São Paulo II 24/25</p>
+                        <a href="/src/pages/produto/saopaulo/saopaulo2.html" class="banner_btn">CONFIRA</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim Banner - Carrossel -->
+
+    <!-- Início dos Produtos -->
+
+
+    <main class="container">
+        <!-- Inicio Novidades -->
+        <div class="produtos">
+            <h2 class="produtos_titulo">
+                Destaques
+            </h2>
+            <div class="produtos_itens" id="destaques-dinamicos">
+                <!-- Produtos do backend serão carregados dinamicamente aqui -->
+            </div>
+        </div>
+        <!-- Fim Novidades -->
+
+    </main>
+    <!-- Fim dos Produtos -->
+         <!-- Inicio do Produto -->
+    <div class="container margin-y add-pad">
+
+
+        <!-- Imagem do Produto -->
+        <h2 class="produtos_titulo">
+            Sobre nossa loja
+        </h2>
+        <div class="grid-sobre">
+            
+            <img class="sobre-img" src="/src/images/sobre.jpg" alt="Jogador do corinthians e palmeiras em jogo">
+
+            <div class="sobre">
+                <h3>Você está pronto para vestir a paixão?</h3>
+                <p>Venha à <strong>The Soccer Store</strong> e encontre as camisas mais incríveis dos quatro principais
+                    times paulistas: <strong>Corinthians</strong>, <strong>Palmeiras</strong>, <strong>Santos</strong> e
+                    <strong>São Paulo</strong>! Seja para você ou para presentear um amigo torcedor, temos as melhores
+                    opções para você mostrar seu amor pelo futebol.</p>
+                <p>Qual é o seu time? Seja um alvinegro, um palestrino, um santista ou um tricolor, aqui você encontra a
+                    camisa perfeita para vestir a paixão! Visite-nos e se prepare para entrar em campo com estilo! Vamos
+                    vestir a paixão juntos!</p>
+            </div>
+        </div>
+    </div>
+    <!-- Fim do Produto -->
+
+    <!-- Footer -->
+    <div id="footer">
+    </div>
+
+    <script>
+        //CARROUSSEL_________________________________________
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            loop: true,
+            items: 1,
+            autoplay: true,
+            autoplayTimeout: 10000
+        });
+
+        async function carregarDestaques() {
+            const container = document.getElementById('destaques-dinamicos');
+            if (!container) return;
+            try {
+                const resp = await fetch('https://sua-api.com/camisetas?destaque=true');
+                if (!resp.ok) throw new Error('Erro ao buscar destaques');
+                const camisetas = await resp.json();
+                container.innerHTML = '';
+                if (camisetas.length > 0) {
+                    camisetas.forEach(c => {
+                        const a = document.createElement('a');
+                        a.className = 'camiseta-item';
+                        a.href = c.link || '#';
+                        a.innerHTML = `
+                          <article class="produtos_produto">
+                            <img src="${c.imagem}" class="produtos_imagem" alt="${c.nome}">
+                            <h3 class="produtos_nome">${c.nome}</h3>
+                            <div class="produtos_preco">R$ <span class="valor-produto">${Number(c.preco).toFixed(2)}</span> no Pix</div>
+                            <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">${(Number(c.preco) * 1.1).toFixed(2)}</span> em até <span class="parcelas">7</span>x</div>
+                          </article>
+                        `;
+                        container.appendChild(a);
+                    });
+                }
+            } catch (e) {
+                // Não sobrescreve os produtos estáticos, apenas exibe erro se necessário
+                const erro = document.createElement('p');
+                erro.textContent = 'Erro ao carregar destaques do backend.';
+                erro.style.color = 'red';
+                container.appendChild(erro);
+            }
+        }
+        carregarDestaques();
+    </script>
+
+</body>
+
+</html>
