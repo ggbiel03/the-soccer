@@ -96,7 +96,7 @@
       </section>
     </main>
 
-    <!-- Modal -->
+    <!-- Modal Adicionar -->
     <div id="modalForm" class="lp-modal">
       <div class="lp-modal-content">
         <span class="lp-modal-close" id="btnCloseModal">&times;</span>
@@ -182,6 +182,80 @@
           <div style="display: flex; gap: 1rem; justify-content: flex-end">
             <button type="button" id="btnCloseModal">Cancelar</button>
             <button type="submit">Adicionar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Editar -->
+    <div id="modalEdit" class="lp-modal">
+      <div class="lp-modal-content">
+        <span class="lp-modal-close" id="btnCloseEditModal">&times;</span>
+        <h2>Editar Camiseta</h2>
+        <p style="margin-bottom: 1rem; color: #555">
+          Atualize os detalhes da camiseta selecionada.
+        </p>
+        <form id="camisetaEditForm" class="lp-form">
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+            <input
+              id="editCamisetaNome"
+              placeholder="Nome da Camiseta"
+              required
+              style="flex: 1"
+            />
+            <select id="editCamisetaTime" required style="flex: 1">
+              <option value="" disabled selected>Time</option>
+              <option value="Corinthians">Corinthians</option>
+              <option value="Palmeiras">Palmeiras</option>
+              <option value="Santos">Santos</option>
+              <option value="São Paulo">São Paulo</option>
+            </select>
+          </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+            <input
+              type="number"
+              id="editCamisetaPreco"
+              placeholder="Preço (R$)"
+              required
+              style="flex: 1"
+            />
+          </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+            <input
+              type="number"
+              id="editCamisetaEstoque"
+              placeholder="Estoque"
+              required
+              style="flex: 1"
+            />
+            <select id="editCamisetaImagemVar" required style="flex: 1">
+              <option value="" disabled selected>Escolha a camisa</option>
+              <option value="corinthians1">Camisa Corinthians I 24/25</option>
+              <option value="corinthians2">Camisa Corinthians II 24/25</option>
+              <option value="corinthians3">Camisa Corinthians III 24/25</option>
+              <option value="palmeiras1">Camisa Palmeiras I 24/25</option>
+              <option value="palmeiras2">Camisa Palmeiras II 24/25</option>
+              <option value="santos1">Camisa Santos I 24/25</option>
+              <option value="santos2">Camisa Santos II 24/25</option>
+              <option value="saopaulo1">Camisa São Paulo I 24/25</option>
+              <option value="saopaulo2">Camisa São Paulo II 24/25</option>
+            </select>
+          </div>
+          <textarea
+            id="editDescricao"
+            placeholder="Descrição da Camiseta"
+            rows="3"
+            required
+            style="flex: 1"
+          ></textarea>
+          <label
+            ><input type="checkbox" id="editCamisetaDestaque" /> Produto em
+            destaque</label
+          >
+
+          <div style="display: flex; gap: 1rem; justify-content: flex-end">
+            <button type="button" id="btnCloseEditModal">Cancelar</button>
+            <button type="submit">Salvar Alterações</button>
           </div>
         </form>
       </div>
