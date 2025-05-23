@@ -23,8 +23,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     saopaulo2: "/src/images/produto/saopaulo2.jpg",
   };
 
+  const API_BASE_URL = "http://localhost:5000";
+
   // Atualiza a URL para o endpoint correto para listar camisetas
-  const API_LIST_URL = "http://localhost:5000/listarCamisetas";
+  const API_LIST_URL = `${API_BASE_URL}/listarCamisetas`;
 
   // Buscar camisetas do backend ao carregar a página
   try {
@@ -103,44 +105,63 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Atualiza a URL para o endpoint correto
   const API_URL = "http://localhost:5000/cadastrarCamiseta";
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const nova = {
-      nome: form["camisetaNome"].value,
-      time: form["camisetaTime"].value,
-      preco: parseFloat(form["camisetaPreco"].value),
-      estoque: parseInt(form["camisetaEstoque"].value),
-      imagemVar: form["camisetaImagemVar"].value, // variável da camisa
-      imagem: mapaImagens[form["camisetaImagemVar"].value] || "", // caminho real
-      destaque: form["camisetaDestaque"].checked,
-      descricao: form["descricao"].value, // Adiciona a descrição
-    };
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const nome = form["camisetaNome"].value.trim();
+    const time = form["camisetaTime"].value;
+    const preco = parseFloat(form["camisetaPreco"].value);
+    const estoque = parseInt(form["camisetaEstoque"].value, 10);
+    const imagemVar = form["camisetaImagemVar"].value;
+    const destaque = form["camisetaDestaque"].checked;
+
+    if (!nome || !time || isNaN(preco) || isNaN(estoque) || !imagemVar) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    const tamanhosDisponiveis = Array.from(
+      document.querySelectorAll('input[name="tamanho"]:checked')
+    ).map((input) => input.value);
+
+    const data = { nome, time, preco, estoque, imagemVar, destaque, tamanhosDisponiveis };
 
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${API_BASE_URL}/cadastrarCamiseta`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(nova),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Erro ao cadastrar");
+        throw new Error("Erro ao adicionar a camiseta. Tente novamente mais tarde.");
       }
-    } catch (err) {
-      alert("Erro ao cadastrar: " + err.message);
-    }
 
-    if (editIndex !== null) {
-      camisetas[editIndex] = nova;
-    } else {
-      camisetas.push(nova);
-    }
+      const result = await response.json();
 
-    modal.style.display = "none";
-    if (typeof render === "function") render();
-
-    if (nova.destaque) {
-      window.location.href = "/index.html";
+      if (result.success) {
+        alert("Camiseta adicionada com sucesso!");
+        if (destaque) {
+          // Atualiza a página inicial e a página shop
+          await fetch(`${API_BASE_URL}/atualizarDestaques`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ nome, time, preco, estoque, imagemVar, tamanhosDisponiveis: data.tamanhosDisponiveis }),
+          });
+        }
+        modal.style.display = "none";
+        form.reset();
+        if (typeof render === "function") render();
+      } else {
+        alert(result.message || "Erro ao adicionar a camiseta.");
+      }
+    } catch (error) {
+      console.error("Erro ao adicionar a camiseta:", error);
+      alert("Erro ao adicionar a camiseta. Tente novamente mais tarde.");
     }
   });
 });
@@ -216,4 +237,90 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput?.addEventListener("input", () => render());
 
   render();
+});
+
+// Função para abrir o modal de edição
+function abrirModalEditarCamiseta(index) {
+  const camiseta = window.camisetas[index];
+  if (!camiseta) return;
+
+  // Preenche os campos do modal de edição com os dados da camiseta
+  document.getElementById("editCamisetaNome").value = camiseta.nome;
+  document.getElementById("editCamisetaTime").value = camiseta.time;
+  document.getElementById("editCamisetaPreco").value = camiseta.preco;
+  document.getElementById("editCamisetaEstoque").value = camiseta.estoque;
+  document.getElementById("editCamisetaImagemVar").value = camiseta.imagemVar;
+  document.getElementById("editDescricao").value = camiseta.descricao;
+  document.getElementById("editCamisetaDestaque").checked = camiseta.destaque;
+
+  // Exibe o modal de edição
+  const modalEdit = document.getElementById("modalEdit");
+  modalEdit.style.display = "flex";
+
+  // Fecha o modal ao clicar no botão de cancelar
+  document.getElementById("btnCloseEditModal").addEventListener("click", () => {
+    modalEdit.style.display = "none";
+  });
+
+  // Salva as alterações ao enviar o formulário
+  document.getElementById("camisetaEditForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const data = {
+      nome: document.getElementById("editCamisetaNome").value,
+      time: document.getElementById("editCamisetaTime").value,
+      preco: parseFloat(document.getElementById("editCamisetaPreco").value),
+      estoque: parseInt(document.getElementById("editCamisetaEstoque").value, 10),
+      imagemVar: document.getElementById("editCamisetaImagemVar").value,
+      descricao: document.getElementById("editDescricao").value,
+      destaque: document.getElementById("editCamisetaDestaque").checked,
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/editarCamiseta/${camiseta.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao editar a camiseta. Tente novamente mais tarde.");
+      }
+
+      alert("Camiseta editada com sucesso!");
+      modalEdit.style.display = "none";
+      if (typeof render === "function") render();
+    } catch (error) {
+      console.error("Erro ao editar a camiseta:", error);
+      alert("Erro ao editar a camiseta. Tente novamente mais tarde.");
+    }
+  });
+}
+
+// Função para excluir camiseta
+document.addEventListener("click", async (event) => {
+  if (event.target.classList.contains("btn-excluir")) {
+    const index = event.target.getAttribute("data-index");
+    const camiseta = window.camisetas[index];
+
+    if (confirm(`Deseja realmente excluir a camiseta ${camiseta.nome}?`)) {
+      try {
+        const response = await fetch(`${API_BASE_URL}/excluirCamiseta/${camiseta.id}`, {
+          method: "DELETE",
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro ao excluir a camiseta. Tente novamente mais tarde.");
+        }
+
+        alert("Camiseta excluída com sucesso!");
+        if (typeof render === "function") render();
+      } catch (error) {
+        console.error("Erro ao excluir a camiseta:", error);
+        alert("Erro ao excluir a camiseta. Tente novamente mais tarde.");
+      }
+    }
+  }
 });
