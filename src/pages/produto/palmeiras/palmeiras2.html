@@ -121,15 +121,51 @@
     <!-- Scripts -->
     <script src="/src/scripts/camisas.js"></script>
     <script>
-        document.getElementById('buy-now').addEventListener('click', function() {
-            const nome = document.querySelector('.produto-nome').textContent;
-            const tamanho = document.querySelector('input[name="tamanho"]:checked')?.value;
-            const quantidade = document.getElementById('qtde-input').getAttribute('data-value');
-            if (tamanho && quantidade) {
-                localStorage.setItem('produtoSelecionado', JSON.stringify({ nome, tamanho, quantidade }));
-                window.location.href = '/src/pages/pedidos/checkout.html';
-            } else {
-                alert('Por favor, selecione o tamanho e a quantidade.');
+        
+        // Custom select para quantidade
+        (function() {
+            var quantidadeInput = document.getElementById('qtde-input');
+            var quantidadeOptions = document.getElementById('qtde-options');
+            if (quantidadeInput && quantidadeOptions) {
+                quantidadeInput.addEventListener('click', function(e) {
+                    quantidadeOptions.style.display = quantidadeOptions.style.display === 'block' ? 'none' : 'block';
+                });
+                quantidadeOptions.querySelectorAll('li').forEach(function(option) {
+                    option.addEventListener('click', function(e) {
+                        quantidadeInput.value = option.textContent;
+                        quantidadeInput.setAttribute('data-value', option.getAttribute('data-value'));
+                        quantidadeOptions.style.display = 'none';
+                        quantidadeInput.classList.remove('input-error');
+                    });
+                });
+                document.addEventListener('click', function(e) {
+                    if (!quantidadeInput.contains(e.target) && !quantidadeOptions.contains(e.target)) {
+                        quantidadeOptions.style.display = 'none';
+                    }
+                });
+            }
+        })();
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const buyNowButton = document.getElementById('buy-now');
+            const quantidadeInput = document.getElementById('qtde');
+
+            if (buyNowButton && quantidadeInput) {
+                buyNowButton.addEventListener('click', () => {
+                    const quantidade = parseInt(quantidadeInput.value, 10) || 1;
+
+                    const produto = {
+                        nome: 'Camisa Palmeiras Torcedor HOME 25/25 s/n° Puma Masculina',
+                        preco: '315.99', // Valor unitário
+                        quantidade: quantidade
+                    };
+
+                    // Armazena os dados no localStorage
+                    localStorage.setItem('camisaSelecionada', JSON.stringify(produto));
+
+                    // Redireciona para a página de checkout
+                    window.location.href = '/src/pages/pedidos/checkout.html';
+                });
             }
         });
     </script>

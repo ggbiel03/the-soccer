@@ -81,8 +81,54 @@
             <h2 class="produtos_titulo">
                 Destaques
             </h2>
-            <div class="produtos_itens" id="destaques-dinamicos">
-                <!-- Produtos do backend serão carregados dinamicamente aqui -->
+            <div class="produtos_itens">
+                <!-- Inicio Bloco Produto -->
+                <a href="/src/pages/produto/corinthians/corinthians1.html">
+                    <article class="produtos_produto">
+                        <img src="/src/images/produto/corinthians.jpg" class="produtos_imagem" alt="Camisa do Corinthians">
+                        <h3 class="produtos_nome">Camisa Corinthians I 24/25 s/n° Torcedor Nike Masculina</h3>
+                        <div class="produtos_preco">R$ <span class="valor-produto">314,99</span> no Pix</div>
+                        <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">349,99</span> em até <span
+                                class="parcelas">7</span>x</div>
+                    </article>
+                </a>
+                <!-- Fim Bloco Produto -->
+
+                <!-- Inicio Bloco Produto -->
+                <a href="/src/pages/produto/palmeiras/palmeiras1.html">
+                    <article class="produtos_produto">
+                        <img src="/src/images/produto/palmeiras.jpg" class="produtos_imagem" alt="Camisa do Palmeiras">
+                        <h3 class="produtos_nome">Camisa Palmeiras I 24/25 s/n° Torcedor Puma Masculina</h3>
+                        <div class="produtos_preco">R$ <span class="valor-produto">309,99</span> no Pix</div>
+                        <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">329,99</span> em até <span
+                                class="parcelas">7</span>x</div>
+                    </article>
+                </a>
+                <!-- Fim Bloco Produto -->
+
+                <!-- Inicio Bloco Produto -->
+                <a href="/src/pages/produto/santos/santos1.html">
+                    <article class="produtos_produto">
+                        <img src="/src/images/produto/santos.jpg" class="produtos_imagem" alt="Camisa do Santos">
+                        <h3 class="produtos_nome">Camisa Santos I 24/25 s/n° Torcedor Umbro Masculina</h3>
+                        <div class="produtos_preco">R$ <span class="valor-produto">304,99</span> no Pix</div>
+                        <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">319,99</span> em até <span
+                                class="parcelas">7</span>x</div>
+                    </article>
+                </a>
+                <!-- Fim Bloco Produto -->
+
+                <!-- Inicio Bloco Produto -->
+                <a href="/src/pages/produto/saopaulo/saopaulo1.html">
+                    <article class="produtos_produto">
+                        <img src="/src/images/produto/saopaulo.jpg" class="produtos_imagem" alt="Camisa do São Paulo">
+                        <h3 class="produtos_nome">Camisa São Paulo I 24/25 s/n° Torcedor New Balance Masculina</h3>
+                        <div class="produtos_preco">R$ <span class="valor-produto">314,99</span> no Pix</div>
+                        <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">349,99</span> em até <span
+                                class="parcelas">7</span>x</div>
+                    </article>
+                </a>
+                <!-- Fim Bloco Produto -->
             </div>
         </div>
         <!-- Fim Novidades -->
@@ -128,40 +174,6 @@
             autoplay: true,
             autoplayTimeout: 10000
         });
-
-        async function carregarDestaques() {
-            const container = document.getElementById('destaques-dinamicos');
-            if (!container) return;
-            try {
-                const resp = await fetch('https://sua-api.com/camisetas?destaque=true');
-                if (!resp.ok) throw new Error('Erro ao buscar destaques');
-                const camisetas = await resp.json();
-                container.innerHTML = '';
-                if (camisetas.length > 0) {
-                    camisetas.forEach(c => {
-                        const a = document.createElement('a');
-                        a.className = 'camiseta-item';
-                        a.href = c.link || '#';
-                        a.innerHTML = `
-                          <article class="produtos_produto">
-                            <img src="${c.imagem}" class="produtos_imagem" alt="${c.nome}">
-                            <h3 class="produtos_nome">${c.nome}</h3>
-                            <div class="produtos_preco">R$ <span class="valor-produto">${Number(c.preco).toFixed(2)}</span> no Pix</div>
-                            <div class="produtos_parcelas">ou R$ <span class="valor-parcelado">${(Number(c.preco) * 1.1).toFixed(2)}</span> em até <span class="parcelas">7</span>x</div>
-                          </article>
-                        `;
-                        container.appendChild(a);
-                    });
-                }
-            } catch (e) {
-                // Não sobrescreve os produtos estáticos, apenas exibe erro se necessário
-                const erro = document.createElement('p');
-                erro.textContent = 'Erro ao carregar destaques do backend.';
-                erro.style.color = 'red';
-                container.appendChild(erro);
-            }
-        }
-        carregarDestaques();
     </script>
 
 </body>

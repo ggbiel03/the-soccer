@@ -153,3 +153,87 @@ if (camisaSelecionada) {
     document.getElementById('spec-manga').textContent = camisas[camisaSelecionada.id].manga;
     document.getElementById('spec-marca').textContent = camisas[camisaSelecionada.id].marca;
 }
+
+// Atualiza a div pedido_detalhe dinamicamente
+const pedidoDetalhe = document.querySelector('.pedido_detalhe');
+if (pedidoDetalhe && camisaSelecionada) {
+    pedidoDetalhe.innerHTML = `
+        <h3 class="pedido_produto">${camisaSelecionada.nome}</h3>
+        <div class="pedido_quantidade">Quantidade: <span>${camisaSelecionada.quantidade}</span></div>
+        <div class="pedido_valor">Valor Unitário: R$ <span>${camisaSelecionada.preco}</span></div>
+    `;
+}
+
+// Adiciona a quantidade selecionada ao localStorage
+const quantidadeInput = document.getElementById('quantidade');
+const adicionarAoCarrinhoBtn = document.getElementById('adicionarAoCarrinho');
+
+// Ensure the selected product's details are stored in localStorage
+adicionarAoCarrinhoBtn.addEventListener('click', () => {
+    const quantidade = parseInt(quantidadeInput.value, 10) || 1;
+    const produtoId = adicionarAoCarrinhoBtn.dataset.produtoId; // Assuming a data attribute for product ID
+    const produto = camisas[produtoId]; // Retrieve product details from the camisas object
+
+    if (produto) {
+        const camisaSelecionada = {
+            nome: produto.nome,
+            preco: produto.preco,
+            quantidade: quantidade
+        };
+        localStorage.setItem('camisaSelecionada', JSON.stringify(camisaSelecionada));
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const camisaSelecionada = JSON.parse(localStorage.getItem('camisaSelecionada'));
+
+    if (camisaSelecionada) {
+        // Atualiza a div pedido_detalhe
+        const pedidoDetalhe = document.querySelector('.pedido_detalhe');
+        if (pedidoDetalhe) {
+            pedidoDetalhe.innerHTML = `
+                <h3 class="pedido_produto">${camisaSelecionada.nome}</h3>
+                <div class="pedido_quantidade">Quantidade: <span>${camisaSelecionada.quantidade}</span></div>
+                <div class="pedido_valor">Valor Unitário: R$ <span>${parseFloat(camisaSelecionada.preco.replace(',', '.')).toFixed(2)}</span></div>
+            `;
+        }
+
+        // Atualiza o resumo do pedido
+        const subtotal = camisaSelecionada.quantidade * parseFloat(camisaSelecionada.preco.replace(',', '.'));
+        const frete = 50; // Valor fixo do frete
+        const total = subtotal + frete;
+
+        document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+        document.getElementById('total').textContent = `R$ ${total.toFixed(2)}`;
+    } else {
+        // Caso não haja produto selecionado, exibe valores zerados
+        document.getElementById('subtotal').textContent = 'R$ 0.00';
+        document.getElementById('total').textContent = 'R$ 50.00'; // Apenas o frete
+
+        const pedidoDetalhe = document.querySelector('.pedido_detalhe');
+        if (pedidoDetalhe) {
+            pedidoDetalhe.innerHTML = '<p>Nenhum produto selecionado.</p>';
+        }
+    }
+});
+
+// Reutiliza as variáveis já declaradas
+if (adicionarAoCarrinhoBtn && quantidadeInput) {
+    adicionarAoCarrinhoBtn.addEventListener('click', () => {
+        const quantidade = parseInt(quantidadeInput.value, 10) || 1;
+        const produtoId = adicionarAoCarrinhoBtn.dataset.produtoId; // ID do produto
+        const produto = camisas[produtoId]; // Busca o produto no objeto camisas
+
+        if (produto) {
+            const camisaSelecionada = {
+                nome: produto.nome,
+                preco: produto.preco,
+                quantidade: quantidade
+            };
+            localStorage.setItem('camisaSelecionada', JSON.stringify(camisaSelecionada));
+
+            // Redireciona para a página de checkout
+            window.location.href = '/src/pages/pedidos/checkout.html';
+        }
+    });
+}

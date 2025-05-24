@@ -1487,6 +1487,16 @@ p + p {
 	font-weight: 400;
 }
 
+.pedido_detalhe + ol {
+    list-style: none;
+    padding: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
 .pedido_item {
 	/*display: grid;*/
 	grid-template-columns: 15ch 1fr;

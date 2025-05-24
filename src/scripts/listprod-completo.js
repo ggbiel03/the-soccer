@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let editIndex = null;
   window.camisetas = window.camisetas || [];
 
-  // Mapeamento das variáveis para caminhos de imagem
+  // Atualiza o mapa de imagens para garantir os caminhos corretos
   const mapaImagens = {
     corinthians1: "/src/images/produto/corinthians.jpg",
     corinthians2: "/src/images/produto/corinthians2.jpg",
@@ -36,13 +36,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         const camisetasBackend = await resp.json();
         if (Array.isArray(camisetasBackend) && camisetasBackend.length > 0) {
           window.camisetas = camisetasBackend;
+        } else {
+          window.camisetas = []; // Garante que a lista seja limpa se não houver dados
         }
+      } else {
+        console.error("Erro ao buscar camisetas: ", resp.statusText);
+        window.camisetas = [];
       }
     } catch (e) {
       console.error("Erro ao buscar camisetas: ", e);
-      // Se der erro, mantém os dados locais
+      window.camisetas = [];
     }
-    if (typeof render === "function") render();
+
+    if (typeof render === "function") {
+      render(); // Atualiza a interface com os dados carregados
+    }
   }
 
   // Chama a função ao carregar a página
@@ -69,10 +77,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   window.editarCamiseta = function (index) {
     const camiseta = camisetas[index];
-    if (!camiseta) return;
+    if (!camiseta) {
+      console.error("Camiseta não encontrada para edição.");
+      return;
+    }
     preencherFormulario(camiseta);
     editIndex = index;
-    modal.style.display = "flex";
+
+    // Garante que o modal seja exibido
+    const modal = document.getElementById("modalForm");
+    if (modal) {
+      modal.style.display = "flex";
+    } else {
+      console.error("Modal de edição não encontrado.");
+    }
   };
 
   window.excluirCamiseta = function (index) {
@@ -130,7 +148,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.querySelectorAll('input[name="tamanho"]:checked')
     ).map((input) => input.value);
 
-    const data = { nome, time, preco, estoque, imagemVar, destaque, tamanhosDisponiveis };
+    const data = {
+      nome,
+      time,
+      preco,
+      estoque,
+      imagemVar,
+      destaque,
+      tamanhosDisponiveis,
+    };
 
     try {
       const response = await fetch(`${API_BASE_URL}/cadastrarCamiseta`, {
@@ -142,7 +168,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao adicionar a camiseta. Tente novamente mais tarde.");
+        throw new Error(
+          "Erro ao adicionar a camiseta. Tente novamente mais tarde."
+        );
       }
 
       const result = await response.json();
@@ -156,7 +184,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ nome, time, preco, estoque, imagemVar, tamanhosDisponiveis: data.tamanhosDisponiveis }),
+            body: JSON.stringify({
+              nome,
+              time,
+              preco,
+              estoque,
+              imagemVar,
+              tamanhosDisponiveis: data.tamanhosDisponiveis,
+            }),
           });
         }
         modal.style.display = "none";
@@ -194,7 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
 
   window.render = function () {
-    const tipoFiltro = filterSelect?.value || "";
     const timeFiltro = filterTime?.value || "";
     const busca = searchInput?.value.toLowerCase() || "";
 
@@ -202,14 +236,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let count = 0;
 
     camisetas.forEach((c, i) => {
-      const tipoClass =
-        "lp-tipo-" + (c.tipo ? c.tipo.replace(/\s+/g, "-") : "indefinido");
-
-      const correspondeTipo = !tipoFiltro || c.tipo === tipoFiltro;
       const correspondeTime = !timeFiltro || c.time === timeFiltro;
       const correspondeBusca = !busca || c.nome.toLowerCase().includes(busca);
 
-      if (correspondeTipo && correspondeTime && correspondeBusca) {
+      if (correspondeTime && correspondeBusca) {
         const row = document.createElement("tr");
         row.innerHTML = `
           <td><img src="${
@@ -219,15 +249,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;"></td>
           <td>${c.nome}</td>
           <td>${c.time}</td>
-          <td><span class="lp-tag ${tipoClass}">${c.tipo}</span></td>
           <td><strong>R$ ${c.preco.toFixed(2)}</strong></td>
           <td>${c.estoque}</td>
           <td style="color:${c.destaque ? "green" : "red"}">${
           c.destaque ? "✓" : "✕"
         }</td>
           <td>
-            <button class="lp-btn lp-btn-edit" onclick="editarCamiseta(${i})">✏️</button>
-            <button class="lp-btn lp-btn-del" onclick="excluirCamiseta(${i})">🗑️</button>
+            <button class="lp-btn lp-btn-edit" onclick="editarCamiseta(${i})">Editar ✏️</button>
+            <button class="lp-btn lp-btn-del" onclick="excluirCamiseta(${i})">Excluir 🗑️</button>
           </td>
         `;
         tableBody.appendChild(row);
@@ -269,40 +298,50 @@ function abrirModalEditarCamiseta(index) {
   });
 
   // Salva as alterações ao enviar o formulário
-  document.getElementById("camisetaEditForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
+  document
+    .getElementById("camisetaEditForm")
+    .addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-    const data = {
-      nome: document.getElementById("editCamisetaNome").value,
-      time: document.getElementById("editCamisetaTime").value,
-      preco: parseFloat(document.getElementById("editCamisetaPreco").value),
-      estoque: parseInt(document.getElementById("editCamisetaEstoque").value, 10),
-      imagemVar: document.getElementById("editCamisetaImagemVar").value,
-      descricao: document.getElementById("editDescricao").value,
-      destaque: document.getElementById("editCamisetaDestaque").checked,
-    };
+      const data = {
+        nome: document.getElementById("editCamisetaNome").value,
+        time: document.getElementById("editCamisetaTime").value,
+        preco: parseFloat(document.getElementById("editCamisetaPreco").value),
+        estoque: parseInt(
+          document.getElementById("editCamisetaEstoque").value,
+          10
+        ),
+        imagemVar: document.getElementById("editCamisetaImagemVar").value,
+        descricao: document.getElementById("editDescricao").value,
+        destaque: document.getElementById("editCamisetaDestaque").checked,
+      };
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/editarCamiseta/${camiseta.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/editarCamiseta/${camiseta.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
 
-      if (!response.ok) {
-        throw new Error("Erro ao editar a camiseta. Tente novamente mais tarde.");
+        if (!response.ok) {
+          throw new Error(
+            "Erro ao editar a camiseta. Tente novamente mais tarde."
+          );
+        }
+
+        alert("Camiseta editada com sucesso!");
+        modalEdit.style.display = "none";
+        if (typeof render === "function") render();
+      } catch (error) {
+        console.error("Erro ao editar a camiseta:", error);
+        alert("Erro ao editar a camiseta. Tente novamente mais tarde.");
       }
-
-      alert("Camiseta editada com sucesso!");
-      modalEdit.style.display = "none";
-      if (typeof render === "function") render();
-    } catch (error) {
-      console.error("Erro ao editar a camiseta:", error);
-      alert("Erro ao editar a camiseta. Tente novamente mais tarde.");
-    }
-  });
+    });
 }
 
 // Função para excluir camiseta
@@ -313,12 +352,17 @@ document.addEventListener("click", async (event) => {
 
     if (confirm(`Deseja realmente excluir a camiseta ${camiseta.nome}?`)) {
       try {
-        const response = await fetch(`${API_BASE_URL}/excluirCamiseta/${camiseta.id}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `${API_BASE_URL}/excluirCamiseta/${camiseta.id}`,
+          {
+            method: "DELETE",
+          }
+        );
 
         if (!response.ok) {
-          throw new Error("Erro ao excluir a camiseta. Tente novamente mais tarde.");
+          throw new Error(
+            "Erro ao excluir a camiseta. Tente novamente mais tarde."
+          );
         }
 
         alert("Camiseta excluída com sucesso!");

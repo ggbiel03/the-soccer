@@ -141,6 +141,69 @@
             }
         });
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const camisaSelecionada = JSON.parse(localStorage.getItem('camisaSelecionada'));
+
+            if (camisaSelecionada) {
+                // Atualiza a seção de detalhes do pedido
+                const pedidoDetalhe = document.querySelector('.pedido_detalhe');
+                if (pedidoDetalhe) {
+                    const detalhesProduto = document.createElement('ol');
+                    detalhesProduto.innerHTML = `
+                <li><strong>Produto:</strong> ${camisaSelecionada.nome}</li>
+                <li><strong>Quantidade:</strong> ${camisaSelecionada.quantidade}</li>
+                <li><strong>Valor Unitário:</strong> R$ ${parseFloat(camisaSelecionada.preco.replace(',', '.')).toFixed(2)}</li>
+            `;
+                    pedidoDetalhe.insertAdjacentElement('afterend', detalhesProduto);
+                }
+
+                // Calcula e atualiza o resumo do pedido
+                const precoUnitario = parseFloat(camisaSelecionada.preco.replace(',', '.'));
+                const subtotal = camisaSelecionada.quantidade * precoUnitario;
+
+                document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+                document.getElementById('total').textContent = `R$ ${subtotal.toFixed(2)}`;
+            } else {
+                // Exibe valores zerados caso não haja produto selecionado
+                document.getElementById('subtotal').textContent = 'R$ 0.00';
+                document.getElementById('total').textContent = 'R$ 0.00';
+
+                const pedidoDetalhe = document.querySelector('.pedido_detalhe');
+                if (pedidoDetalhe) {
+                    const detalhesProduto = document.createElement('ol');
+                    detalhesProduto.innerHTML = '<li>Nenhum produto selecionado.</li>';
+                    pedidoDetalhe.insertAdjacentElement('afterend', detalhesProduto);
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Limpa a visualização se não houver produto selecionado
+            const camisaSelecionada = JSON.parse(localStorage.getItem('camisaSelecionada'));
+            if (!camisaSelecionada) {
+                // Zera valores e mostra mensagem de carrinho vazio
+                const subtotal = document.getElementById('subtotal');
+                const total = document.getElementById('total');
+                if (subtotal) subtotal.textContent = 'R$ 0,00';
+                if (total) total.textContent = 'R$ 0,00';
+                const pedidoDetalhe = document.querySelector('.pedido_detalhe');
+                if (pedidoDetalhe) pedidoDetalhe.innerHTML = '<p>Nenhum produto no carrinho.</p>';
+            }
+        });
+
+        // Sempre limpa o carrinho ao acessar o checkout pelo menu
+        document.addEventListener('DOMContentLoaded', function() {
+            // Limpa o localStorage do produto selecionado
+            localStorage.removeItem('camisaSelecionada');
+            // Zera valores e mostra mensagem de carrinho vazio
+            const subtotal = document.getElementById('subtotal');
+            const total = document.getElementById('total');
+            if (subtotal) subtotal.textContent = 'R$ 0,00';
+            if (total) total.textContent = 'R$ 0,00';
+            const pedidoDetalhe = document.querySelector('.pedido_detalhe');
+            if (pedidoDetalhe) pedidoDetalhe.innerHTML = '<p>Nenhum produto no carrinho.</p>';
+        });
+
         function validarFormularioPagamento() {
             const metodoPagamento = document.querySelector('input[name="pagamento"]:checked');
             if (!metodoPagamento) {

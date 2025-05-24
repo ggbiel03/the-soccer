@@ -144,6 +144,37 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buyNowButton = document.getElementById('buy-now');
+
+            if (buyNowButton) {
+                buyNowButton.addEventListener('click', () => {
+                    const nome = document.querySelector('.produto_nome').textContent;
+                    const preco = document.querySelector('.produto_preco').textContent.replace('R$ ', '').replace(',', '.');
+                    const tamanho = document.querySelector('input[name="tamanho"]:checked')?.value;
+                    const quantidade = document.getElementById('qtde').value;
+
+                    if (tamanho && quantidade) {
+                        const produto = {
+                            nome,
+                            preco,
+                            tamanho,
+                            quantidade: parseInt(quantidade, 10)
+                        };
+
+                        // Armazena os dados no localStorage
+                        localStorage.setItem('camisaSelecionada', JSON.stringify(produto));
+
+                        // Redireciona para a página de checkout
+                        window.location.href = '/src/pages/pedidos/checkout.html';
+                    } else {
+                        alert('Por favor, selecione o tamanho e a quantidade.');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
