@@ -1,4 +1,152 @@
-// === listprod-integrado.js ===
+// === LISTAGEM ESTÁTICA DE CAMISAS ===
+document.addEventListener("DOMContentLoaded", () => {
+  if (!window.location.pathname.includes("listprod.html")) return;
+
+  const tableBody = document.getElementById("camisetaTableBody");
+  const countSpan = document.getElementById("camisetaCount");
+
+  // Lista estática de camisas conforme as páginas existentes
+  const camisasEstaticas = [
+    {
+      nome: "Camisa Corinthians I 24/25",
+      time: "Corinthians",
+      preco: 314.99,
+      estoque: 10,
+      destaque: true,
+      imagem: "/src/images/produto/corinthians.jpg",
+    },
+    {
+      nome: "Camisa Corinthians II 24/25",
+      time: "Corinthians",
+      preco: 319.99,
+      estoque: 10,
+      destaque: false,
+      imagem: "/src/images/produto/corinthians2.jpg",
+    },
+    {
+      nome: "Camisa Corinthians III 24/25",
+      time: "Corinthians",
+      preco: 329.99,
+      estoque: 10,
+      destaque: false,
+      imagem: "/src/images/produto/corinthians3.jpg",
+    },
+    {
+      nome: "Camisa Palmeiras I 24/25",
+      time: "Palmeiras",
+      preco: 309.99,
+      estoque: 10,
+      destaque: true,
+      imagem: "/src/images/produto/palmeiras.jpg",
+    },
+    {
+      nome: "Camisa Palmeiras II 25/25",
+      time: "Palmeiras",
+      preco: 315.99,
+      estoque: 10,
+      destaque: false,
+      imagem: "/src/images/produto/palmeiras2.jpg",
+    },
+    {
+      nome: "Camisa Santos I 24/25",
+      time: "Santos",
+      preco: 304.99,
+      estoque: 10,
+      destaque: true,
+      imagem: "/src/images/produto/santos.jpg",
+    },
+    {
+      nome: "Camisa Santos II 25/25",
+      time: "Santos",
+      preco: 339.99,
+      estoque: 10,
+      destaque: false,
+      imagem: "/src/images/produto/santos2.jpg",
+    },
+    {
+      nome: "Camisa São Paulo I 24/24",
+      time: "São Paulo",
+      preco: 299.99,
+      estoque: 10,
+      destaque: true,
+      imagem: "/src/images/produto/saopaulo.jpg",
+    },
+    {
+      nome: "Camisa São Paulo II 25/25",
+      time: "São Paulo",
+      preco: 399.99,
+      estoque: 10,
+      destaque: false,
+      imagem: "/src/images/produto/saopaulo2.jpg",
+    },
+  ];
+
+// --- FILTRO POR TIME E BUSCA ---
+  const filterTime = document.getElementById("filterTime");
+  const searchInput = document.getElementById("searchInput");
+
+  // Preencher opções do filtro de times dinamicamente
+  if (filterTime) {
+    // Adiciona a opção 'Todos' (vazia)
+    filterTime.innerHTML = '<option value="">Todos</option>';
+    // Coleta times únicos
+    const timesUnicos = [...new Set(camisasEstaticas.map(c => c.time))];
+    timesUnicos.forEach(time => {
+      const opt = document.createElement('option');
+      opt.value = time;
+      opt.textContent = time;
+      filterTime.appendChild(opt);
+    });
+  }
+
+  function renderCamisas() {
+    tableBody.innerHTML = "";
+    let filtroTime = filterTime ? filterTime.value : "";
+    let busca = searchInput ? searchInput.value.toLowerCase() : "";
+    let count = 0;
+    camisasEstaticas.forEach((c, idx) => {
+      const correspondeTime = !filtroTime || c.time === filtroTime;
+      const correspondeBusca = !busca || c.nome.toLowerCase().includes(busca);
+      if (correspondeTime && correspondeBusca) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><img src="${c.imagem}" alt="${c.nome}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;"></td>
+          <td>${c.nome}</td>
+          <td>${c.time}</td>
+          <td><strong>R$ ${c.preco.toFixed(2)}</strong></td>
+          <td>${c.estoque}</td>
+          <td style="color:${c.destaque ? "green" : "red"}">${c.destaque ? "✓" : "✕"}</td>
+          <td>
+            <button class="lp-btn lp-btn-del" data-index="${idx}">Excluir 🗑️</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+        count++;
+      }
+    });
+    countSpan.textContent = count;
+  }
+
+  tableBody.addEventListener("click", function (e) {
+    if (e.target.classList.contains("lp-btn-del")) {
+      const idx = parseInt(e.target.getAttribute("data-index"), 10);
+      if (!isNaN(idx)) {
+        if (confirm(`Deseja realmente excluir a camisa "${camisasEstaticas[idx].nome}"?`)) {
+          camisasEstaticas.splice(idx, 1);
+          renderCamisas();
+        }
+      }
+    }
+  });
+
+  if (filterTime) filterTime.addEventListener("change", renderCamisas);
+  if (searchInput) searchInput.addEventListener("input", renderCamisas);
+
+  renderCamisas();
+});
+
+// ================== CÓDIGO ORIGINAL (AGORA COMENTADO) ==================
+/*
 document.addEventListener("DOMContentLoaded", async () => {
   if (!window.location.pathname.includes("listprod.html")) return;
 
@@ -374,3 +522,4 @@ document.addEventListener("click", async (event) => {
     }
   }
 });
+*/
