@@ -39,7 +39,7 @@
                     <hr>
 
                     <label for="nome">Nome</label>
-                    <input type="text" name="nome" id="nome" placeholder="Insira seu nome" required>
+                    <input type="text" name="nome" id="nome" placeholder="Insira seu nome" disabled>
 
                 </fieldset>
 
@@ -58,6 +58,49 @@
     <!-- Footer -->
     <div id="footer"></div>
 
+    <script>
+        const API_BASE_URL = "http://127.0.0.1:5000";
+
+        document.querySelector("form.form").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email-cadastro").value.trim();
+            const senha = document.getElementById("senha-cadastro").value.trim();
+            const nome = document.getElementById("nome").value.trim();
+
+            if (!email || !senha || !nome) {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            const data = { email, senha, nome };
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/perfil/atualizar`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Erro ao salvar alterações. Tente novamente mais tarde.");
+                }
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert("Alterações salvas com sucesso!");
+                } else {
+                    alert(result.message || "Erro ao salvar alterações.");
+                }
+            } catch (error) {
+                console.error("Erro ao salvar alterações:", error);
+                alert("Erro ao salvar alterações. Tente novamente mais tarde.");
+            }
+        });
+    </script>
 </body>
 
 </html>

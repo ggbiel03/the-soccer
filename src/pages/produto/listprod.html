@@ -77,7 +77,6 @@
                 <th>Imagem</th>
                 <th>Nome</th>
                 <th>Time</th>
-                <th>Tipo</th>
                 <th>Preço</th>
                 <th>Estoque</th>
                 <th>Destaque</th>
@@ -164,7 +163,6 @@
             <label><input type="checkbox" />M</label>
             <label><input type="checkbox" />G</label>
             <label><input type="checkbox" />GG</label>
-            <label><input type="checkbox" />XGG</label>
           </fieldset>
 
           <textarea
@@ -260,23 +258,6 @@
         </form>
       </div>
     </div>
-
-    <!-- Adicionando o template para as linhas da tabela -->
-    <template id="camisetaRowTemplate">
-      <tr>
-        <td><img src="" alt="" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;"></td>
-        <td class="camiseta-nome"></td>
-        <td class="camiseta-time"></td>
-        <td><span class="lp-tag camiseta-tipo"></span></td>
-        <td><strong class="camiseta-preco"></strong></td>
-        <td class="camiseta-estoque"></td>
-        <td class="camiseta-destaque" style="color: red;"></td>
-        <td>
-          <button class="lp-btn lp-btn-edit">Editar ✏️</button>
-          <button class="lp-btn lp-btn-del">Excluir 🗑️</button>
-        </td>
-      </tr>
-    </template>
 
     <footer id="footer"></footer>
     <script src="/src/scripts/listprod-completo.js"></script>

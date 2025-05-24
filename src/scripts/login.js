@@ -5,6 +5,8 @@ let cadastreSe = document.querySelector("#cadastrese");
 let voltarLogin = document.querySelectorAll(".voltar-login");
 let esqueciSenha = document.querySelector("#esqueci");
 
+const API_BASE_URL = "http://127.0.0.1:5000";
+
 function showForm(e) {
   e.classList.add("login_form--active");
   e.classList.remove("login_form--inactive");
@@ -41,7 +43,7 @@ function loginUsuario(event) {
   var email = document.getElementById("email-login").value;
   var senha = document.getElementById("senha-login").value;
   var data = { email: email, senha: senha };
-  fetch("http://127.0.0.1:5000/login", {
+  fetch(`${API_BASE_URL}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

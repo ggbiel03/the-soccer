@@ -124,6 +124,26 @@
         };
       });
     </script>
+    <script>
+        document.getElementById('buy-now').addEventListener('click', function () {
+            const tamanhoSelecionado = document.querySelector('input[name="tamanho"]:checked');
+            const quantidade = document.getElementById('qtde').value;
+
+            if (tamanhoSelecionado && quantidade) {
+                // Desabilitar tamanhos não selecionados
+                document.querySelectorAll('input[name="tamanho"]').forEach(input => {
+                    if (!input.checked) {
+                        input.disabled = true;
+                    }
+                });
+
+                // Redirecionar para a página shop
+                window.location.href = '/src/pages/shop/shop.html';
+            } else {
+                alert('Por favor, selecione o tamanho e a quantidade.');
+            }
+        });
+    </script>
 </body>
 
 </html>

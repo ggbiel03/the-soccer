@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+const API_BASE_URL = "http://127.0.0.1:5000";
+
 function loginUsuario(event) {
   event.preventDefault();
   var btnEntrar = document.querySelector("input[type='submit']");
@@ -20,7 +22,7 @@ function loginUsuario(event) {
     return;
   }
   var data = { email: email, senha: senha };
-  fetch("http://127.0.0.1:5000/login", {
+  fetch(`${API_BASE_URL}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
